@@ -13,14 +13,17 @@ class ExploreController extends BaseController {
   @override
   void onInit() async {
     super.onInit();
+    await searchProduct(keyword: " ");
+  }
+
+  Future<void> searchProduct({required String keyword, int limit = 10, int page = 0}) async {
     await networkCall(
-      _exploreService.searchProducts(keyword: " ", limit: 10, page: 0),
+      _exploreService.searchProducts(keyword: keyword, limit: limit, page: page),
       onSuccess: (data) {
         products.clear();
         products.addAll(data);
       }
     );
-
   }
 
 }

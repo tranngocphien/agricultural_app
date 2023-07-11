@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
+import 'package:grocery_app/entity/cart_item.dart';
 import 'package:grocery_app/entity/grocery_item.dart';
 import 'package:grocery_app/styles/colors.dart';
 
-import 'item_counter_widget.dart';
+import '../../../../common/utils/number_format.dart';
+import '../../../../widgets/item_counter_widget.dart';
+import '../cart_controller.dart';
 
-class ChartItemWidget extends StatefulWidget {
-  ChartItemWidget({Key? key, required this.item}) : super(key: key);
-  final GroceryItem item;
+class CartItemWidget extends StatefulWidget {
+  CartItemWidget({Key? key, required this.item}) : super(key: key);
+  final CartItemEntity item;
 
   @override
-  _ChartItemWidgetState createState() => _ChartItemWidgetState();
+  _CartItemWidgetState createState() => _CartItemWidgetState();
 }
 
-class _ChartItemWidgetState extends State<ChartItemWidget> {
+class _CartItemWidgetState extends State<CartItemWidget> {
   final double height = 110;
 
   final Color borderColor = Color(0xffE2E2E2);
@@ -23,7 +27,14 @@ class _ChartItemWidgetState extends State<ChartItemWidget> {
   int amount = 1;
 
   @override
+  void initState() {
+    super.initState();
+    amount = widget.item.amount ?? 0;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    amount = widget.item.amount ?? 0;
     return Container(
       height: height,
       margin: EdgeInsets.symmetric(
@@ -39,7 +50,7 @@ class _ChartItemWidgetState extends State<ChartItemWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppText(
-                  text: widget.item.name,
+                  text: widget.item.product?.name ?? "",
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -47,7 +58,7 @@ class _ChartItemWidgetState extends State<ChartItemWidget> {
                   height: 5,
                 ),
                 AppText(
-                    text: widget.item.description,
+                    text: widget.item.product?.sku ?? "",
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: AppColors.darkGrey),
@@ -56,10 +67,16 @@ class _ChartItemWidgetState extends State<ChartItemWidget> {
                 ),
                 Spacer(),
                 ItemCounterWidget(
-                  onAmountChanged: (newAmount) {
-                    setState(() {
-                      amount = newAmount;
-                    });
+                  initialAmount: amount,
+                  onIncrement: () {
+                    if(widget.item.product != null) {
+                      Get.find<CartController>().addItemToCart(widget.item.product!);
+                    }
+                  },
+                  onDecrement: () {
+                    if(widget.item.product != null) {
+                      Get.find<CartController>().removeItem(widget.item.product!);
+                    }
                   },
                 )
               ],
@@ -77,7 +94,7 @@ class _ChartItemWidgetState extends State<ChartItemWidget> {
                 Container(
                   width: 70,
                   child: AppText(
-                    text: "\$${getPrice().toStringAsFixed(2)}",
+                    text: formatNumber(widget.item.product?.price ?? 0),
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     textAlign: TextAlign.right,
@@ -95,11 +112,7 @@ class _ChartItemWidgetState extends State<ChartItemWidget> {
   Widget imageWidget() {
     return Container(
       width: 100,
-      child: Image.asset(widget.item.imagePath),
+      child: Image.network(widget.item.product?.images?.first ?? ""),
     );
-  }
-
-  double getPrice() {
-    return widget.item.price * amount;
   }
 }

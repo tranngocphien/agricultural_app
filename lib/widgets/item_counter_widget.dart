@@ -2,23 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:grocery_app/styles/colors.dart';
 
 class ItemCounterWidget extends StatefulWidget {
-  final Function? onAmountChanged;
+  final int initialAmount;
+  final Function onIncrement;
+  final Function onDecrement;
 
-  const ItemCounterWidget({Key? key, this.onAmountChanged}) : super(key: key);
+  const ItemCounterWidget(
+      {Key? key,
+      required this.initialAmount,
+      required this.onIncrement,
+      required this.onDecrement})
+      : super(key: key);
 
   @override
   _ItemCounterWidgetState createState() => _ItemCounterWidgetState();
 }
 
 class _ItemCounterWidgetState extends State<ItemCounterWidget> {
-  int amount = 1;
+  int amount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    amount = widget.initialAmount;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        iconWidget(Icons.remove,
-            iconColor: AppColors.darkGrey, onPressed: decrementAmount),
+        iconWidget(Icons.remove, iconColor: AppColors.darkGrey, onPressed: () {
+          widget.onDecrement();
+          setState(() {
+            amount--;
+          });
+        }),
         SizedBox(width: 18),
         Container(
             width: 30,
@@ -27,30 +44,14 @@ class _ItemCounterWidgetState extends State<ItemCounterWidget> {
                     text: amount.toString(), fontSize: 18, isBold: true))),
         SizedBox(width: 18),
         iconWidget(Icons.add,
-            iconColor: AppColors.primaryColor, onPressed: incrementAmount)
+            iconColor: AppColors.primaryColor, onPressed: () {
+              widget.onIncrement();
+              setState(() {
+                amount++;
+              });
+            })
       ],
     );
-  }
-
-  void incrementAmount() {
-    setState(() {
-      amount = amount + 1;
-      updateParent();
-    });
-  }
-
-  void decrementAmount() {
-    if (amount <= 0) return;
-    setState(() {
-      amount = amount - 1;
-      updateParent();
-    });
-  }
-
-  void updateParent() {
-    if (widget.onAmountChanged != null) {
-      widget.onAmountChanged!(amount);
-    }
   }
 
   Widget iconWidget(IconData iconData, {Color? iconColor, onPressed}) {

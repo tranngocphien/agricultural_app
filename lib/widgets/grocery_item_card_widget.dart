@@ -1,14 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
-import 'package:grocery_app/entity/grocery_item.dart';
 import 'package:grocery_app/entity/product_entity.dart';
+import 'package:grocery_app/screens/cart/presentation/cart_controller.dart';
 import 'package:grocery_app/styles/colors.dart';
 
 import '../common/utils/number_format.dart';
 
-class GroceryItemCardWidget extends StatelessWidget {
-  GroceryItemCardWidget({Key? key, required this.item})
+class ProductItemCard extends StatelessWidget {
+  ProductItemCard({Key? key, required this.item})
       : super(key: key);
   final ProductEntity item;
 
@@ -63,7 +63,12 @@ class GroceryItemCardWidget extends StatelessWidget {
                 ),
                 Text(item.sku ?? ""),
                 Spacer(),
-                addWidget()
+                GestureDetector(
+                  onTap: () {
+                    Get.find<CartController>().addItemToCart(item);
+                    print("Add to cart");
+                  },
+                    child: addWidget())
               ],
             )
           ],

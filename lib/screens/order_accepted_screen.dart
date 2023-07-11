@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:grocery_app/common_widgets/app_button.dart';
+
+import '../routes/app_routes.dart';
 
 class OrderAcceptedScreen extends StatelessWidget {
   @override
@@ -22,7 +25,7 @@ class OrderAcceptedScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Text(
-                "You Order Has Been Accepted",
+                "Thành công",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
               ),
@@ -31,7 +34,7 @@ class OrderAcceptedScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Text(
-                "Your item has been placed and is on it's way to being processed",
+                "Đơn hàng của bạn đã được đặt thành công và đang được xử lý",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 16,
@@ -43,9 +46,9 @@ class OrderAcceptedScreen extends StatelessWidget {
               flex: 8,
             ),
             AppButton(
-              label: "Track Order",
+              label: "Xem đơn hàng",
               onPressed: () {
-                Navigator.pop(context);
+                Get.toNamed(AppRoutes.historyOrder);
               },
             ),
             Spacer(
@@ -53,10 +56,11 @@ class OrderAcceptedScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.pop(context);
+                Get.back();
+                print("a");
               },
               child: Text(
-                "Back To Home",
+                "Về màn hình chính",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),

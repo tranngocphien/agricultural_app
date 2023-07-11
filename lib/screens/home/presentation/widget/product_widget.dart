@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:grocery_app/common/utils/number_format.dart';
 
 import '../../../../entity/product_entity.dart';
+import '../../../../routes/app_routes.dart';
 import '../../../../styles/colors.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -16,7 +18,8 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          // onItemClicked(context, items[index]);
+          Get.toNamed(AppRoutes.productDetail,
+              arguments: product);
         },
         child: Container(
             child: Row(

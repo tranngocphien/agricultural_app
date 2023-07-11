@@ -7,8 +7,8 @@ class ApiException implements Exception {
   ApiException({required this.message, required this.status});
 }
 
-class UnauthorizedException extends ApiException {
-  UnauthorizedException({required String message})
+class UnauthorizedApiException extends ApiException {
+  UnauthorizedApiException({required String message})
       : super(message: message, status: HttpStatus.unauthorized);
 }
 

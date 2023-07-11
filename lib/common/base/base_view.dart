@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/common/base/base_controller.dart';
+import 'package:lottie/lottie.dart';
 
 abstract class BaseView<Controller extends BaseController> extends GetView<Controller> {
   Widget buildLoading() {
-    return Center(
-      child: CupertinoActivityIndicator(),
+    return Scaffold(
+      body: Center(
+        child: CupertinoActivityIndicator(),
+      ),
     );
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_app/screens/account/account_screen.dart';
-import 'package:grocery_app/screens/cart/cart_screen.dart';
+import 'package:grocery_app/screens/account/presentation/account_screen.dart';
+import 'package:grocery_app/screens/cart/presentation/cart_screen.dart';
 import 'package:grocery_app/screens/explore/presentation/explore_screen.dart';
 import 'package:grocery_app/screens/home/presentation/home_screen.dart';
 

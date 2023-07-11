@@ -43,8 +43,15 @@ class ExploreScreen extends BaseView<ExploreController> {
           height: 20,
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: SearchBarWidget(),
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: TextField(
+            decoration: InputDecoration(
+                hintText: "Tìm kiếm sản phẩm"
+            ),
+            onChanged: (value) {
+              controller.searchProduct(keyword: value);
+            },
+          ),
         ),
         SizedBox(
           height: 20,
@@ -61,7 +68,7 @@ class ExploreScreen extends BaseView<ExploreController> {
               },
               separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(
-                  width: 20,
+                  height: 20,
                 );
               },
             )),

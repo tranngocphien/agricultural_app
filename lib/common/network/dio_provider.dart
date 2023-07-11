@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
+import 'package:grocery_app/common/constants.dart';
+import 'package:grocery_app/common/local/shared_pref.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioProvider {
   DioProvider._();
 
-  static final String baseUrl = "http://192.168.1.12:8080/";
+  static final String baseUrl = "http://192.168.1.13:8080/";
 
   static Dio? _instance;
 
@@ -30,7 +33,7 @@ class DioProvider {
       );
       _instance = Dio(options);
       _instance?.options.headers['content-Type'] = 'Application/json';
-
+      getTokenStorage();
       _instance?.interceptors.addAll(
         [
           _prettyDioLogger
@@ -38,6 +41,14 @@ class DioProvider {
       );
     }
     return _instance!;
+  }
+
+  static void getTokenStorage() async {
+    final localStorage = Get.find<LocalStorage>();
+    String? accessToken = await localStorage.get<String?>(SharedPrefKey.accessToken);
+    if(accessToken != null) {
+      addToken(accessToken);
+    }
   }
 
   static void addToken(String token) {

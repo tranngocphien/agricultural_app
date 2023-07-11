@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../exception/api_exception.dart';
 
 abstract class BaseController extends GetxController {
@@ -17,7 +19,7 @@ abstract class BaseController extends GetxController {
       onStart?.call();
       T response = await future;
       if (onSuccess != null) onSuccess(response);
-    } on UnauthorizedException catch (exception) {
+    } on UnauthorizedApiException catch (exception) {
       _exception = exception;
     } on ServerErrorException catch (exception) {
       _exception = exception;
@@ -27,6 +29,19 @@ abstract class BaseController extends GetxController {
       if (onComplete != null) onComplete();
     }
     if (onError != null && _exception != null) onError(_exception);
+  }
+  
+  void showLoading() {
+    Get.dialog(
+      Center(
+        child: Container(
+          width: 100,
+          height: 100,
+          child: Lottie.asset('assets/json/loading.json'),
+        ),
+      ),
+      barrierDismissible: false,
+    );
   }
 }
 

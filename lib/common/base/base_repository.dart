@@ -10,14 +10,13 @@ class BaseRepository {
       {Map<String, dynamic>? queryParameters}) async {
     try {
       final response = await dio.get(url, queryParameters: queryParameters);
-      if(response.statusCode! < 300) {
+      if (response.statusCode! < 300) {
         return response.data;
-      } else if(response.statusCode == 401) {
-        throw UnauthorizedException(message: response.data['message']);
-      } else if(response.statusCode == 502) {
+      } else if (response.statusCode == 401) {
+        throw UnauthorizedApiException(message: response.data['message']);
+      } else if (response.statusCode == 502) {
         throw ServerErrorException(message: response.data['message']);
       }
-
     } on DioException catch (error) {
       rethrow;
     } catch (error, _) {
@@ -29,12 +28,12 @@ class BaseRepository {
       {Map<String, dynamic>? queryParameters, String? keyData}) async {
     try {
       final response = await dio.get(url, queryParameters: queryParameters);
-      if(response.statusCode! < 300) {
-        if(keyData != null) return convert(response.data[keyData]);
+      if (response.statusCode! < 300) {
+        if (keyData != null) return convert(response.data[keyData]);
         return response.data;
-      } else if(response.statusCode == 401) {
-        throw UnauthorizedException(message: response.data['message']);
-      } else if(response.statusCode == 502) {
+      } else if (response.statusCode == 401) {
+        throw UnauthorizedApiException(message: response.data['message']);
+      } else if (response.statusCode == 502) {
         throw ServerErrorException(message: response.data['message']);
       }
       return convert(response.data);
@@ -44,16 +43,18 @@ class BaseRepository {
     }
   }
 
-  Future<List<T>> getListData<T>(String url, T Function(Map<String, dynamic> json) convert,
+  Future<List<T>> getListData<T>(
+      String url, T Function(Map<String, dynamic> json) convert,
       {Map<String, dynamic>? queryParameters, String? keyData}) async {
     try {
       final response = await dio.get(url, queryParameters: queryParameters);
-      dynamic snapshot = keyData == null ? response.data : response.data[keyData];
-      if(response.statusCode! < 300) {
+      dynamic snapshot =
+          keyData == null ? response.data : response.data[keyData];
+      if (response.statusCode! < 300) {
         return (snapshot as List).map((e) => convert(e)).toList();
-      } else if(response.statusCode == 401) {
-        throw UnauthorizedException(message: response.data['message']);
-      } else if(response.statusCode == 502) {
+      } else if (response.statusCode == 401) {
+        throw UnauthorizedApiException(message: response.data['message']);
+      } else if (response.statusCode == 502) {
         throw ServerErrorException(message: response.data['message']);
       }
       return (response.data as List).map((e) => convert(e)).toList();
@@ -66,17 +67,41 @@ class BaseRepository {
   Future<dynamic> post(String url, {dynamic data}) async {
     try {
       final response = await dio.post(url, data: data);
-      if(response.statusCode! < 300) {
+      if (response.statusCode! < 300) {
         return response.data;
-      } else if(response.statusCode == 401) {
-        throw UnauthorizedException(message: response.data['message']);
-      } else if(response.statusCode == 502) {
+      } else if (response.statusCode == 401) {
+        throw UnauthorizedApiException(message: response.data['message']);
+      } else if (response.statusCode == 502) {
         throw ServerErrorException(message: response.data['message']);
       }
     } on DioException catch (error) {
       rethrow;
     } catch (error, _) {
       rethrow;
+    }
+  }
+
+  Future<T> postData<T>(String url, T Function(dynamic json) convert,
+      {Map<String, dynamic>? data, String? keyData}) async {
+    try {
+      final response = await dio.post(url, data: data);
+      if (response.statusCode! < 300) {
+        if (keyData != null) return convert(response.data[keyData]);
+        return convert(response.data);
+      } else if (response.statusCode == 401) {
+        throw UnauthorizedApiException(message: response.data['message']);
+      } else if (response.statusCode == 502) {
+        throw ServerErrorException(message: response.data['message']);
+      }
+      return convert(response.data);
+    } on DioException catch (e) {
+      if(e.response?.statusCode == 401){
+        throw UnauthorizedApiException(message: e.response?.data['message']);
+      }
+      rethrow;
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      throw Exception("Failed to get data");
     }
   }
 }

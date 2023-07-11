@@ -5,11 +5,11 @@ import 'package:grocery_app/entity/grocery_item.dart';
 import 'package:grocery_app/screens/home/presentation/home_controller.dart';
 import 'package:grocery_app/screens/home/presentation/widget/product_widget.dart';
 import 'package:grocery_app/screens/main/main_controller.dart';
-import 'package:grocery_app/screens/product_details/product_details_screen.dart';
 import 'package:grocery_app/styles/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:grocery_app/widgets/grocery_item_card_widget.dart';
 import 'package:grocery_app/widgets/search_bar_widget.dart';
+import '../../../routes/app_routes.dart';
 import 'widget/home_banner_widget.dart';
 
 class HomeScreen extends BaseView<HomeController> {
@@ -47,8 +47,10 @@ class HomeScreen extends BaseView<HomeController> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
+                        Get.toNamed(AppRoutes.productDetail,
+                            arguments: controller.products[index]);
                       },
-                      child: GroceryItemCardWidget(
+                      child: ProductItemCard(
                         item: controller.products[index],
                       ),
                     );
@@ -68,37 +70,59 @@ class HomeScreen extends BaseView<HomeController> {
                   height: 15,
                 ),
                 Container(
-                    height: 105,
+                    height: 124,
                     padding: EdgeInsets.symmetric(horizontal: 25),
                     child: Obx(() => ListView.separated(
                           itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                                width: 100,
-                                height: 100,
-                                child: Column(
-                                  children: [
-                                    Image.network(
-                                      controller.categories[index]
-                                              .categoryThumb ??
-                                          "",
-                                      height: 80,
-                                      width: 80,
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      controller
-                                              .categories[index].categoryName ??
-                                          "",
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.primaryColor,
+                            return GestureDetector(
+                              onTap: () {
+                                Get.toNamed(AppRoutes.categoryCollection,
+                                    arguments: controller.categories[index]);
+                              },
+                              child: Container(
+                                  width: 120,
+                                  height: 124,
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                      color: AppColors.primaryColor,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: AppColors.primaryColor
+                                                .withOpacity(0.1),
+                                            blurRadius: 10,
+                                            offset: Offset(0, 5))
+                                      ]
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(16),
+                                        child: Image.network(
+                                          controller.categories[index]
+                                                  .categoryThumb ??
+                                              "",
+                                          height: 80,
+                                          width: 80,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                    )
-                                  ],
-                                ));
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        controller
+                                                .categories[index].categoryName ??
+                                            "",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.white
+                                        ),
+                                      )
+                                    ],
+                                  )),
+                            );
                           },
                           itemCount: controller.categories.length,
                           separatorBuilder: (BuildContext context, int index) {
@@ -127,7 +151,7 @@ class HomeScreen extends BaseView<HomeController> {
                       },
                       separatorBuilder: (BuildContext context, int index) {
                         return SizedBox(
-                          width: 20,
+                          height: 20,
                         );
                       },
                     )),
@@ -150,14 +174,6 @@ class HomeScreen extends BaseView<HomeController> {
   }
 
   void onItemClicked(BuildContext context, GroceryItem groceryItem) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => ProductDetailsScreen(
-                groceryItem,
-                heroSuffix: "home_screen",
-              )),
-    );
   }
 
   Widget subTitle(String text) {
