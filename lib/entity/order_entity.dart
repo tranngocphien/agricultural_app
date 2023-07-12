@@ -16,7 +16,8 @@ class OrderEntity with _$OrderEntity {
     ShippingAddressEntity? shippingAddress,
     String? status,
     PaymentTypeEntity? paymentType,
-    List<OrderItemEntity>? items
+    List<OrderItemEntity>? items,
+    DateTime? createTime
   }) = _OrderEntity;
 
   factory OrderEntity.fromJson(Map<String, dynamic> json) =>

@@ -37,4 +37,9 @@ class AppStyles {
     fontWeight: FontWeight.w600,
     color: AppColors.primaryColor,
   );
+
+  static TextStyle s12w400 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  );
 }

@@ -49,6 +49,32 @@ class SignInScreen extends BaseView<SignInController> {
               const SizedBox(
                 height: 20,
               ),
+              DefaultTabController(length: 2,
+                child: Column(
+                  children: [
+                    TabBar(
+                      labelColor: AppColors.primaryColor,
+                      unselectedLabelColor: Colors.grey,
+                      indicatorColor: AppColors.primaryColor,
+                      onTap: (index) {
+                        controller.tabIndex.value = index;
+                      },
+                      tabs: [
+                        Tab(
+                          text: "Khách hàng",
+                        ),
+                        Tab(
+                          text: "Nhà cung cấp",
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    )
+                  ],
+                )
+
+              ),
               Text("Đăng nhập bằng tài khoản của bạn"),
               const SizedBox(
                 height: 20,

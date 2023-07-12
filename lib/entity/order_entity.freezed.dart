@@ -28,6 +28,7 @@ mixin _$OrderEntity {
   String? get status => throw _privateConstructorUsedError;
   PaymentTypeEntity? get paymentType => throw _privateConstructorUsedError;
   List<OrderItemEntity>? get items => throw _privateConstructorUsedError;
+  DateTime? get createTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +49,8 @@ abstract class $OrderEntityCopyWith<$Res> {
       ShippingAddressEntity? shippingAddress,
       String? status,
       PaymentTypeEntity? paymentType,
-      List<OrderItemEntity>? items});
+      List<OrderItemEntity>? items,
+      DateTime? createTime});
 
   $ShippingAddressEntityCopyWith<$Res>? get shippingAddress;
   $PaymentTypeEntityCopyWith<$Res>? get paymentType;
@@ -74,6 +76,7 @@ class _$OrderEntityCopyWithImpl<$Res, $Val extends OrderEntity>
     Object? status = freezed,
     Object? paymentType = freezed,
     Object? items = freezed,
+    Object? createTime = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -104,6 +107,10 @@ class _$OrderEntityCopyWithImpl<$Res, $Val extends OrderEntity>
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<OrderItemEntity>?,
+      createTime: freezed == createTime
+          ? _value.createTime
+          : createTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 
@@ -148,7 +155,8 @@ abstract class _$$_OrderEntityCopyWith<$Res>
       ShippingAddressEntity? shippingAddress,
       String? status,
       PaymentTypeEntity? paymentType,
-      List<OrderItemEntity>? items});
+      List<OrderItemEntity>? items,
+      DateTime? createTime});
 
   @override
   $ShippingAddressEntityCopyWith<$Res>? get shippingAddress;
@@ -174,6 +182,7 @@ class __$$_OrderEntityCopyWithImpl<$Res>
     Object? status = freezed,
     Object? paymentType = freezed,
     Object? items = freezed,
+    Object? createTime = freezed,
   }) {
     return _then(_$_OrderEntity(
       id: freezed == id
@@ -204,6 +213,10 @@ class __$$_OrderEntityCopyWithImpl<$Res>
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<OrderItemEntity>?,
+      createTime: freezed == createTime
+          ? _value.createTime
+          : createTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -218,7 +231,8 @@ class _$_OrderEntity implements _OrderEntity {
       this.shippingAddress,
       this.status,
       this.paymentType,
-      final List<OrderItemEntity>? items})
+      final List<OrderItemEntity>? items,
+      this.createTime})
       : _items = items;
 
   factory _$_OrderEntity.fromJson(Map<String, dynamic> json) =>
@@ -247,8 +261,11 @@ class _$_OrderEntity implements _OrderEntity {
   }
 
   @override
+  final DateTime? createTime;
+
+  @override
   String toString() {
-    return 'OrderEntity(id: $id, amount: $amount, shippingFee: $shippingFee, shippingAddress: $shippingAddress, status: $status, paymentType: $paymentType, items: $items)';
+    return 'OrderEntity(id: $id, amount: $amount, shippingFee: $shippingFee, shippingAddress: $shippingAddress, status: $status, paymentType: $paymentType, items: $items, createTime: $createTime)';
   }
 
   @override
@@ -265,7 +282,9 @@ class _$_OrderEntity implements _OrderEntity {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.paymentType, paymentType) ||
                 other.paymentType == paymentType) &&
-            const DeepCollectionEquality().equals(other._items, _items));
+            const DeepCollectionEquality().equals(other._items, _items) &&
+            (identical(other.createTime, createTime) ||
+                other.createTime == createTime));
   }
 
   @JsonKey(ignore: true)
@@ -278,7 +297,8 @@ class _$_OrderEntity implements _OrderEntity {
       shippingAddress,
       status,
       paymentType,
-      const DeepCollectionEquality().hash(_items));
+      const DeepCollectionEquality().hash(_items),
+      createTime);
 
   @JsonKey(ignore: true)
   @override
@@ -302,7 +322,8 @@ abstract class _OrderEntity implements OrderEntity {
       final ShippingAddressEntity? shippingAddress,
       final String? status,
       final PaymentTypeEntity? paymentType,
-      final List<OrderItemEntity>? items}) = _$_OrderEntity;
+      final List<OrderItemEntity>? items,
+      final DateTime? createTime}) = _$_OrderEntity;
 
   factory _OrderEntity.fromJson(Map<String, dynamic> json) =
       _$_OrderEntity.fromJson;
@@ -321,6 +342,8 @@ abstract class _OrderEntity implements OrderEntity {
   PaymentTypeEntity? get paymentType;
   @override
   List<OrderItemEntity>? get items;
+  @override
+  DateTime? get createTime;
   @override
   @JsonKey(ignore: true)
   _$$_OrderEntityCopyWith<_$_OrderEntity> get copyWith =>

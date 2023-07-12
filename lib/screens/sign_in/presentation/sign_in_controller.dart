@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/exceptions/exceptions.dart';
 import 'package:grocery_app/common/base/base_controller.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,7 @@ class SignInController extends BaseController {
   final passwordError = "".obs;
   final SignInService signInService;
   final localStorage = Get.find<LocalStorage>();
+  final tabIndex = 0.obs;
 
   SignInController(this.signInService);
 
@@ -35,7 +37,11 @@ class SignInController extends BaseController {
           DioProvider.addToken(response.token ?? "");
           Get.snackbar("Thông báo", "Đăng nhập thành công");
           Future.delayed(Duration(seconds: 2));
-          Get.offAllNamed(AppRoutes.main);
+          if(tabIndex.value == 0) {
+            Get.offAllNamed(AppRoutes.main);
+          } else {
+            Get.offAllNamed(AppRoutes.mainSupplier);
+          }
         },
         onError: (error) {
           if (error is UnauthorizedApiException) {

@@ -5,6 +5,7 @@ import '../../../../common/utils/number_format.dart';
 import '../../../../entity/order_entity.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../styles/colors.dart';
+import '../../../../styles/text_style.dart';
 
 class CompleteOrderWidget extends StatelessWidget {
   const CompleteOrderWidget({
@@ -25,142 +26,163 @@ class CompleteOrderWidget extends StatelessWidget {
           )
         : ListView.builder(
             itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.only(bottom: 10, top: 10),
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ListView.separated(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, itemIndex) {
-                        List<OrderItemEntity> items = orders[index].items ?? [];
-                        return Column(
-                          children: [
-                            Container(
-                              child: Row(
-                                children: [
-                                  Image.network(
-                                    items[itemIndex].product?.images?.first ?? "",
-                                    height: 100,
-                                    width: 100,
-                                  ),
-                                  SizedBox(
-                                    width: 16,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        items[itemIndex].product?.name ?? "",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      SizedBox(
-                                        height: 4,
-                                      ),
-                                      Text(
-                                        "${formatNumber(items[itemIndex].product?.price ?? 0)} đ",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: AppColors.red01),
-                                      ),
-                                      SizedBox(
-                                        height: 4,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "${items[itemIndex].quantity} x",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                                color: AppColors.darkGrey),
-                                          ),
-                                          SizedBox(
-                                            width: 8,
-                                          ),
-                                          Text(
-                                            "${items[itemIndex].product?.sku ?? ""}",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                                color: AppColors.darkGrey),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
+              return InkWell(
+                onTap: () {
+                  Get.toNamed(
+                    AppRoutes.orderDetail,
+                    arguments: orders[index],
+                  );
+                },
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 10, top: 10),
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, itemIndex) {
+                          List<OrderItemEntity> items = orders[index].items ?? [];
+                          return Column(
+                            children: [
+                              Container(
+                                child: Row(
+                                  children: [
+                                    Image.network(
+                                      items[itemIndex].product?.images?.first ??
+                                          "",
+                                      height: 100,
+                                      width: 100,
+                                    ),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          items[itemIndex].product?.name ?? "",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text(
+                                          "${formatNumber(items[itemIndex].product?.price ?? 0)} đ",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.red01),
+                                        ),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "${items[itemIndex].quantity} x",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.darkGrey),
+                                            ),
+                                            SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
+                                              "${items[itemIndex].product?.sku ?? ""}",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.darkGrey),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            if( items[itemIndex].hasReview == false)
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  width: 150,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      Get.toNamed(AppRoutes.rateProduct, arguments: items[itemIndex]);
-                                    },
-                                    child: Text("Đánh giá"),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.red01,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
+                              if (items[itemIndex].hasReview == false)
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                      width: 150,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Get.toNamed(AppRoutes.rateProduct,
+                                              arguments: items[itemIndex]);
+                                        },
+                                        child: Text("Đánh giá"),
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: AppColors.red01,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-
-
-                              ],
-                            )
-                          ],
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return Divider(
-                          thickness: 1,
-                        );
-                      },
-                      itemCount: orders[index].items?.length ?? 0,
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Tổng cộng",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          "${formatNumber(orders[index].amount ?? 0)} đ",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.red01),
-                        ),
-                        SizedBox(
-                          width: 32,
-                        ),
-                      ],
-                    )
-                  ],
+                                  ],
+                                )
+                              else
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "Đã đánh giá",
+                                      style: AppStyles.s14w400
+                                          .copyWith(color: AppColors.black),
+                                    ),
+                                  ],
+                                )
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return Divider(
+                            thickness: 1,
+                          );
+                        },
+                        itemCount: orders[index].items?.length ?? 0,
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Tổng cộng",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            "${formatNumber(orders[index].amount ?? 0)} đ",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.red01),
+                          ),
+                          SizedBox(
+                            width: 32,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               );
             },

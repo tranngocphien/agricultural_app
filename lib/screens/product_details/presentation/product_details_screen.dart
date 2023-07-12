@@ -5,6 +5,7 @@ import 'package:grocery_app/common/utils/number_format.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
 import 'package:grocery_app/screens/product_details/presentation/product_details_controller.dart';
 import '../../../common/base/base_view.dart';
+import '../../../routes/app_routes.dart';
 import '../../../styles/colors.dart';
 
 class ProductDetailsScreen extends BaseView<ProductDetailController> {
@@ -182,25 +183,30 @@ class ProductDetailsScreen extends BaseView<ProductDetailController> {
                                 ),
                               ),
                               Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Nhà cung cấp",
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
+                                child: InkWell(
+                                  onTap: () {
+                                    Get.toNamed(AppRoutes.supplierInfo, arguments: controller.productEntity.supplier);
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Nhà cung cấp",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      controller.productEntity.supplier?.name ?? "",
-                                      style: TextStyle(
-                                          fontSize: 16, fontWeight: FontWeight.w600),
-                                    )
-                                  ],
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        controller.productEntity.supplier?.name ?? "",
+                                        style: TextStyle(
+                                            fontSize: 16, fontWeight: FontWeight.w600),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],

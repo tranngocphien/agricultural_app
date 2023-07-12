@@ -23,6 +23,9 @@ _$_OrderEntity _$$_OrderEntityFromJson(Map<String, dynamic> json) =>
       items: (json['items'] as List<dynamic>?)
           ?.map((e) => OrderItemEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
+      createTime: json['createTime'] == null
+          ? null
+          : DateTime.parse(json['createTime'] as String),
     );
 
 Map<String, dynamic> _$$_OrderEntityToJson(_$_OrderEntity instance) =>
@@ -34,6 +37,7 @@ Map<String, dynamic> _$$_OrderEntityToJson(_$_OrderEntity instance) =>
       'status': instance.status,
       'paymentType': instance.paymentType,
       'items': instance.items,
+      'createTime': instance.createTime?.toIso8601String(),
     };
 
 _$_OrderItemEntity _$$_OrderItemEntityFromJson(Map<String, dynamic> json) =>

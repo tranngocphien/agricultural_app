@@ -93,7 +93,7 @@ class AccountScreen extends BaseView<AccountController> {
                 iconPath: "assets/icons/account_icons/delivery_icon.svg",
                 title: "Địa chỉ giao hàng",
                 onTap: () {
-                  Get.toNamed(AppRoutes.historyOrder);
+                  Get.toNamed(AppRoutes.address);
                 },
               ),
               Divider(thickness: 1,),
