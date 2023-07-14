@@ -39,8 +39,10 @@ class SignInController extends BaseController {
           Future.delayed(Duration(seconds: 2));
           if(tabIndex.value == 0) {
             Get.offAllNamed(AppRoutes.main);
+
           } else {
             Get.offAllNamed(AppRoutes.mainSupplier);
+            await localStorage.save(SharedPrefKey.isSupplier, true);
           }
         },
         onError: (error) {

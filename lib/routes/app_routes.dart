@@ -28,6 +28,8 @@ class AppRoutes {
   static const orderSuccess = "/placeOrder/success";
   static const rateProduct = "/placeOrder/rateProduct";
 
+  static const createSupplierProduct = "/createSupplierProduct";
+  static const updateSupplierProduct = "/updateSupplierProduct";
 
-
+  static const detailPurchaseOrder = "/detailPurchaseOrder";
 }

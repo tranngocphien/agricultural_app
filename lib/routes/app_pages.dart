@@ -11,6 +11,7 @@ import 'package:grocery_app/screens/product_details/presentation/product_details
 import 'package:grocery_app/screens/rate_product/presentation/rate_product_screen.dart';
 import 'package:grocery_app/screens/sign_in/presentation/sign_in_screen.dart';
 import 'package:grocery_app/screens/splash_screen.dart';
+import 'package:grocery_app/screens/supplier_product/presentation/update_supplier_product/update_supplier_product_screen.dart';
 import 'package:grocery_app/screens/welcome_screen.dart';
 import '../screens/account/presentation/account_binding.dart';
 import '../screens/category_collection/presentation/category_collection_binding.dart';
@@ -31,8 +32,14 @@ import '../screens/rate_product/presentation/rate_product_binding.dart';
 import '../screens/shipping_address/presentation/shipping_address_binding.dart';
 import '../screens/shipping_address/presentation/shipping_address_screen.dart';
 import '../screens/sign_in/presentation/sign_in_binding.dart';
+import '../screens/supplier_account/presentation/supplier_account_binding.dart';
 import '../screens/supplier_info/presentation/supplier_info_binding.dart';
 import '../screens/supplier_info/presentation/supplier_info_screen.dart';
+import '../screens/supplier_product/presentation/create_supplier_product/create_supplier_product_binding.dart';
+import '../screens/supplier_product/presentation/create_supplier_product/create_supplier_product_screen.dart';
+import '../screens/supplier_product/presentation/supplier_product_binding.dart';
+import '../screens/supplier_product/presentation/update_supplier_product/update_supplier_product_binding.dart';
+import '../screens/supplier_purchase_order/presentation/supplier_purchase_order_binding.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -115,10 +122,9 @@ class AppPages {
       page: () => MainSupplierScreen(),
       bindings: [
         MainSupplierBinding(),
-        HomeBindings(),
-        ExploreBindings(),
-        CartBinding(),
-        AccountBinding()
+        SupplierProductBinding(),
+        SupplierPurchaseOrderBinding(),
+        SupplierAccountBinding(),
       ]
     ),
     GetPage(
@@ -135,6 +141,16 @@ class AppPages {
       name: AppRoutes.orderDetail,
       page: () => OrderDetailScreen(),
       binding: OrderDetailBinding()
+    ),
+    GetPage(
+      name: AppRoutes.createSupplierProduct,
+      page: () => CreateSupplierProductScreen(),
+      binding: CreateSupplierProductBinding()
+    ),
+    GetPage(
+        name: AppRoutes.updateSupplierProduct,
+        page: () => UpdateSupplierProductScreen(),
+        binding: UpdateSupplierProductBinding()
     )
   ];
 

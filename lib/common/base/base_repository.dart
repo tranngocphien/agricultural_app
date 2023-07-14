@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:grocery_app/common/network/dio_provider.dart';
 
+import '../constants.dart';
 import '../exception/api_exception.dart';
+import '../local/shared_pref.dart';
 
 class BaseRepository {
   final Dio dio = DioProvider.instance;
@@ -9,6 +12,11 @@ class BaseRepository {
   Future<dynamic> get(String url,
       {Map<String, dynamic>? queryParameters}) async {
     try {
+      final localStorage = Get.find<LocalStorage>();
+      String? accessToken = await localStorage.get<String?>(SharedPrefKey.accessToken);
+      if(accessToken != null) {
+        DioProvider.addToken(accessToken);
+      }
       final response = await dio.get(url, queryParameters: queryParameters);
       if (response.statusCode! < 300) {
         return response.data;
@@ -27,6 +35,11 @@ class BaseRepository {
   Future<T> getData<T>(String url, T Function(dynamic json) convert,
       {Map<String, dynamic>? queryParameters, String? keyData}) async {
     try {
+      final localStorage = Get.find<LocalStorage>();
+      String? accessToken = await localStorage.get<String?>(SharedPrefKey.accessToken);
+      if(accessToken != null) {
+        DioProvider.addToken(accessToken);
+      }
       final response = await dio.get(url, queryParameters: queryParameters);
       if (response.statusCode! < 300) {
         if (keyData != null) return convert(response.data[keyData]);
@@ -47,6 +60,11 @@ class BaseRepository {
       String url, T Function(Map<String, dynamic> json) convert,
       {Map<String, dynamic>? queryParameters, String? keyData}) async {
     try {
+      final localStorage = Get.find<LocalStorage>();
+      String? accessToken = await localStorage.get<String?>(SharedPrefKey.accessToken);
+      if(accessToken != null) {
+        DioProvider.addToken(accessToken);
+      }
       final response = await dio.get(url, queryParameters: queryParameters);
       dynamic snapshot =
           keyData == null ? response.data : response.data[keyData];
@@ -66,6 +84,11 @@ class BaseRepository {
 
   Future<dynamic> post(String url, {dynamic data}) async {
     try {
+      final localStorage = Get.find<LocalStorage>();
+      String? accessToken = await localStorage.get<String?>(SharedPrefKey.accessToken);
+      if(accessToken != null) {
+        DioProvider.addToken(accessToken);
+      }
       final response = await dio.post(url, data: data);
       if (response.statusCode! < 300) {
         return response.data;
@@ -84,6 +107,11 @@ class BaseRepository {
   Future<T> postData<T>(String url, T Function(dynamic json) convert,
       {Map<String, dynamic>? data, String? keyData}) async {
     try {
+      final localStorage = Get.find<LocalStorage>();
+      String? accessToken = await localStorage.get<String?>(SharedPrefKey.accessToken);
+      if(accessToken != null) {
+        DioProvider.addToken(accessToken);
+      }
       final response = await dio.post(url, data: data);
       if (response.statusCode! < 300) {
         if (keyData != null) return convert(response.data[keyData]);

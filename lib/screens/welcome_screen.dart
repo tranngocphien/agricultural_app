@@ -5,6 +5,8 @@ import 'package:grocery_app/common_widgets/app_text.dart';
 import 'package:grocery_app/styles/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../common/constants.dart';
+import '../common/local/shared_pref.dart';
 import '../routes/app_routes.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -97,7 +99,14 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 
-  void onGetStartedClicked(BuildContext context) {
-    Get.toNamed(AppRoutes.main);
+  void onGetStartedClicked(BuildContext context) async {
+    final LocalStorage localStorage = Get.find();
+    bool isSupplier = await localStorage.get<bool?>(SharedPrefKey.isSupplier) ?? false;
+    if(isSupplier) {
+      Get.toNamed(AppRoutes.mainSupplier);
+    }
+    else {
+      Get.toNamed(AppRoutes.main);
+    }
   }
 }

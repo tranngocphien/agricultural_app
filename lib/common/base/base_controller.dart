@@ -18,7 +18,7 @@ abstract class BaseController extends GetxController {
     try {
       onStart?.call();
       T response = await future;
-      if (onSuccess != null) onSuccess(response);
+      onSuccess?.call(response);
     } on UnauthorizedApiException catch (exception) {
       _exception = exception;
     } on ServerErrorException catch (exception) {
