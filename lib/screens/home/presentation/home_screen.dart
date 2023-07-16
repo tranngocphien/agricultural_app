@@ -7,7 +7,7 @@ import 'package:grocery_app/screens/home/presentation/widget/product_widget.dart
 import 'package:grocery_app/screens/main/main_controller.dart';
 import 'package:grocery_app/styles/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:grocery_app/widgets/grocery_item_card_widget.dart';
+import 'package:grocery_app/widgets/product_item_card_widget.dart';
 import 'package:grocery_app/widgets/search_bar_widget.dart';
 import '../../../routes/app_routes.dart';
 import 'widget/home_banner_widget.dart';

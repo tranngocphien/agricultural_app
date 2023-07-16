@@ -43,6 +43,12 @@ abstract class BaseController extends GetxController {
       barrierDismissible: false,
     );
   }
+
+  void hideLoading() {
+    if(Get.isDialogOpen == true) {
+      Get.back();
+    }
+  }
 }
 
 enum LoadStatus {

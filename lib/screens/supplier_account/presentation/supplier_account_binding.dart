@@ -11,7 +11,7 @@ class SupplierAccountBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<SupplierAccountRepository>(() => SupplierAccountRepositoryImpl());
     Get.lazyPut<SupplierAccountService>(() => SupplierAccountServiceImpl(Get.find()));
-    Get.lazyPut<SupplierAccountController>(() => SupplierAccountController());
+    Get.lazyPut<SupplierAccountController>(() => SupplierAccountController(Get.find()));
   }
 
 }

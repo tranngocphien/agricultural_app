@@ -18,6 +18,8 @@ class AppRoutes {
   static const categoryCollection = "/categoryCollection";
 
   static const setting = "/setting";
+  static const profile = "/setting/profile";
+  static const changePassword = "/setting/changePassword";
   static const historyOrder = "/setting/historyOrders";
   static const address = "/setting/address";
   static const createAddress = "/setting/address/create";

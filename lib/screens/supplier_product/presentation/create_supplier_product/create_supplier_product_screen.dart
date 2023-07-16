@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/screens/supplier_product/presentation/create_supplier_product/create_supplier_product_controller.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../common/base/base_controller.dart';
@@ -165,10 +168,10 @@ class CreateSupplierProductScreen
                           height: 4,
                         ),
                         Obx(() => Text(
-                          controller.locationError.value,
-                          style: AppStyles.s12w400
-                              .copyWith(color: Colors.red),
-                        )),
+                              controller.locationError.value,
+                              style:
+                                  AppStyles.s12w400.copyWith(color: Colors.red),
+                            )),
                         Text("Mô tả", style: AppStyles.s14w400),
                         SizedBox(
                           height: 4,
@@ -185,10 +188,10 @@ class CreateSupplierProductScreen
                           height: 4,
                         ),
                         Obx(() => Text(
-                          controller.descriptionError.value,
-                          style: AppStyles.s12w400
-                              .copyWith(color: Colors.red),
-                        )),
+                              controller.descriptionError.value,
+                              style:
+                                  AppStyles.s12w400.copyWith(color: Colors.red),
+                            )),
                         SizedBox(
                           height: 20,
                         ),
@@ -208,10 +211,10 @@ class CreateSupplierProductScreen
                           height: 4,
                         ),
                         Obx(() => Text(
-                          controller.preservationError.value,
-                          style: AppStyles.s12w400
-                              .copyWith(color: Colors.red),
-                        )),
+                              controller.preservationError.value,
+                              style:
+                                  AppStyles.s12w400.copyWith(color: Colors.red),
+                            )),
                         SizedBox(
                           height: 20,
                         ),
@@ -219,22 +222,83 @@ class CreateSupplierProductScreen
                         SizedBox(
                           height: 4,
                         ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: AppColors.colorFEEAE2)),
-                          child: Center(
-                            child: Icon(Icons.add),
+                        Obx(
+                          () => Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  final List<XFile>? selectedImages =
+                                      await controller.picker.pickMultiImage();
+                                  if (selectedImages!.isNotEmpty) {
+                                    controller.imagesProduct.value
+                                        .addAll(selectedImages);
+                                    controller.imagesProduct.refresh();
+                                  }
+                                },
+                                child: Container(
+                                  height: 90,
+                                  width: 90,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                          color: AppColors.colorFEEAE2)),
+                                  child: Center(
+                                    child: Icon(Icons.add),
+                                  ),
+                                ),
+                              ),
+                              ...controller.imagesProduct.value.map((element) =>
+                                  Stack(
+                                    children: [
+                                      Image.file(
+                                        File(element.path),
+                                        height: 90,
+                                        width: 90,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      Positioned(
+                                        right: 4,
+                                        top: 4,
+                                        child: InkWell(
+                                          onTap: () {
+                                            controller.imagesProduct.value
+                                                .remove(element);
+                                            controller.imagesProduct.refresh();
+                                          },
+                                          child: Container(
+                                            height: 20,
+                                            width: 20,
+                                            decoration: BoxDecoration(
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.5),
+                                                    blurRadius: 2,
+                                                    offset: Offset(0, 1))
+                                              ],
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Icon(
+                                              Icons.close,
+                                              size: 15,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ))
+                            ],
                           ),
                         ),
                         Obx(() => Text(
-                          controller.imagesError.value,
-                          style: AppStyles.s12w400
-                              .copyWith(color: Colors.red),
-                        )),
+                              controller.imagesError.value,
+                              style:
+                                  AppStyles.s12w400.copyWith(color: Colors.red),
+                            )),
                         SizedBox(
                           height: 8,
                         ),

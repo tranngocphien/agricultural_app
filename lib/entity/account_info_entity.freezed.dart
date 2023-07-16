@@ -26,6 +26,7 @@ mixin _$AccountInfoEntity {
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
+  String? get avatar => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $AccountInfoEntityCopyWith<$Res> {
       String? email,
       String? phoneNumber,
       String? firstName,
-      String? lastName});
+      String? lastName,
+      String? avatar});
 }
 
 /// @nodoc
@@ -67,6 +69,7 @@ class _$AccountInfoEntityCopyWithImpl<$Res, $Val extends AccountInfoEntity>
     Object? phoneNumber = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
+    Object? avatar = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -93,6 +96,10 @@ class _$AccountInfoEntityCopyWithImpl<$Res, $Val extends AccountInfoEntity>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
+      avatar: freezed == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -111,7 +118,8 @@ abstract class _$$_AccountInfoEntityCopyWith<$Res>
       String? email,
       String? phoneNumber,
       String? firstName,
-      String? lastName});
+      String? lastName,
+      String? avatar});
 }
 
 /// @nodoc
@@ -131,6 +139,7 @@ class __$$_AccountInfoEntityCopyWithImpl<$Res>
     Object? phoneNumber = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
+    Object? avatar = freezed,
   }) {
     return _then(_$_AccountInfoEntity(
       id: freezed == id
@@ -157,6 +166,10 @@ class __$$_AccountInfoEntityCopyWithImpl<$Res>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
+      avatar: freezed == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -170,7 +183,8 @@ class _$_AccountInfoEntity implements _AccountInfoEntity {
       this.email,
       this.phoneNumber,
       this.firstName,
-      this.lastName});
+      this.lastName,
+      this.avatar});
 
   factory _$_AccountInfoEntity.fromJson(Map<String, dynamic> json) =>
       _$$_AccountInfoEntityFromJson(json);
@@ -187,10 +201,12 @@ class _$_AccountInfoEntity implements _AccountInfoEntity {
   final String? firstName;
   @override
   final String? lastName;
+  @override
+  final String? avatar;
 
   @override
   String toString() {
-    return 'AccountInfoEntity(id: $id, username: $username, email: $email, phoneNumber: $phoneNumber, firstName: $firstName, lastName: $lastName)';
+    return 'AccountInfoEntity(id: $id, username: $username, email: $email, phoneNumber: $phoneNumber, firstName: $firstName, lastName: $lastName, avatar: $avatar)';
   }
 
   @override
@@ -207,13 +223,14 @@ class _$_AccountInfoEntity implements _AccountInfoEntity {
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
-                other.lastName == lastName));
+                other.lastName == lastName) &&
+            (identical(other.avatar, avatar) || other.avatar == avatar));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, username, email, phoneNumber, firstName, lastName);
+  int get hashCode => Object.hash(runtimeType, id, username, email, phoneNumber,
+      firstName, lastName, avatar);
 
   @JsonKey(ignore: true)
   @override
@@ -237,7 +254,8 @@ abstract class _AccountInfoEntity implements AccountInfoEntity {
       final String? email,
       final String? phoneNumber,
       final String? firstName,
-      final String? lastName}) = _$_AccountInfoEntity;
+      final String? lastName,
+      final String? avatar}) = _$_AccountInfoEntity;
 
   factory _AccountInfoEntity.fromJson(Map<String, dynamic> json) =
       _$_AccountInfoEntity.fromJson;
@@ -254,6 +272,8 @@ abstract class _AccountInfoEntity implements AccountInfoEntity {
   String? get firstName;
   @override
   String? get lastName;
+  @override
+  String? get avatar;
   @override
   @JsonKey(ignore: true)
   _$$_AccountInfoEntityCopyWith<_$_AccountInfoEntity> get copyWith =>

@@ -23,7 +23,6 @@ mixin _$PurchaseOrderEntity {
   int? get id => throw _privateConstructorUsedError;
   SupplierProductEntity? get supplierProduct =>
       throw _privateConstructorUsedError;
-  int? get shippingFee => throw _privateConstructorUsedError;
   int? get amount => throw _privateConstructorUsedError;
   int? get price => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
@@ -45,7 +44,6 @@ abstract class $PurchaseOrderEntityCopyWith<$Res> {
   $Res call(
       {int? id,
       SupplierProductEntity? supplierProduct,
-      int? shippingFee,
       int? amount,
       int? price,
       String? status,
@@ -70,7 +68,6 @@ class _$PurchaseOrderEntityCopyWithImpl<$Res, $Val extends PurchaseOrderEntity>
   $Res call({
     Object? id = freezed,
     Object? supplierProduct = freezed,
-    Object? shippingFee = freezed,
     Object? amount = freezed,
     Object? price = freezed,
     Object? status = freezed,
@@ -86,10 +83,6 @@ class _$PurchaseOrderEntityCopyWithImpl<$Res, $Val extends PurchaseOrderEntity>
           ? _value.supplierProduct
           : supplierProduct // ignore: cast_nullable_to_non_nullable
               as SupplierProductEntity?,
-      shippingFee: freezed == shippingFee
-          ? _value.shippingFee
-          : shippingFee // ignore: cast_nullable_to_non_nullable
-              as int?,
       amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -138,7 +131,6 @@ abstract class _$$_PurchaseOrderEntityCopyWith<$Res>
   $Res call(
       {int? id,
       SupplierProductEntity? supplierProduct,
-      int? shippingFee,
       int? amount,
       int? price,
       String? status,
@@ -162,7 +154,6 @@ class __$$_PurchaseOrderEntityCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? supplierProduct = freezed,
-    Object? shippingFee = freezed,
     Object? amount = freezed,
     Object? price = freezed,
     Object? status = freezed,
@@ -178,10 +169,6 @@ class __$$_PurchaseOrderEntityCopyWithImpl<$Res>
           ? _value.supplierProduct
           : supplierProduct // ignore: cast_nullable_to_non_nullable
               as SupplierProductEntity?,
-      shippingFee: freezed == shippingFee
-          ? _value.shippingFee
-          : shippingFee // ignore: cast_nullable_to_non_nullable
-              as int?,
       amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -212,7 +199,6 @@ class _$_PurchaseOrderEntity implements _PurchaseOrderEntity {
   _$_PurchaseOrderEntity(
       {this.id,
       this.supplierProduct,
-      this.shippingFee,
       this.amount,
       this.price,
       this.status,
@@ -227,8 +213,6 @@ class _$_PurchaseOrderEntity implements _PurchaseOrderEntity {
   @override
   final SupplierProductEntity? supplierProduct;
   @override
-  final int? shippingFee;
-  @override
   final int? amount;
   @override
   final int? price;
@@ -241,7 +225,7 @@ class _$_PurchaseOrderEntity implements _PurchaseOrderEntity {
 
   @override
   String toString() {
-    return 'PurchaseOrderEntity(id: $id, supplierProduct: $supplierProduct, shippingFee: $shippingFee, amount: $amount, price: $price, status: $status, note: $note, harvestAt: $harvestAt)';
+    return 'PurchaseOrderEntity(id: $id, supplierProduct: $supplierProduct, amount: $amount, price: $price, status: $status, note: $note, harvestAt: $harvestAt)';
   }
 
   @override
@@ -252,8 +236,6 @@ class _$_PurchaseOrderEntity implements _PurchaseOrderEntity {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.supplierProduct, supplierProduct) ||
                 other.supplierProduct == supplierProduct) &&
-            (identical(other.shippingFee, shippingFee) ||
-                other.shippingFee == shippingFee) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.status, status) || other.status == status) &&
@@ -264,8 +246,8 @@ class _$_PurchaseOrderEntity implements _PurchaseOrderEntity {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, supplierProduct, shippingFee,
-      amount, price, status, note, harvestAt);
+  int get hashCode => Object.hash(
+      runtimeType, id, supplierProduct, amount, price, status, note, harvestAt);
 
   @JsonKey(ignore: true)
   @override
@@ -286,7 +268,6 @@ abstract class _PurchaseOrderEntity implements PurchaseOrderEntity {
   factory _PurchaseOrderEntity(
       {final int? id,
       final SupplierProductEntity? supplierProduct,
-      final int? shippingFee,
       final int? amount,
       final int? price,
       final String? status,
@@ -300,8 +281,6 @@ abstract class _PurchaseOrderEntity implements PurchaseOrderEntity {
   int? get id;
   @override
   SupplierProductEntity? get supplierProduct;
-  @override
-  int? get shippingFee;
   @override
   int? get amount;
   @override

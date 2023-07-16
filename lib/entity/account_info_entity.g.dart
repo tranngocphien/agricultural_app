@@ -14,6 +14,7 @@ _$_AccountInfoEntity _$$_AccountInfoEntityFromJson(Map<String, dynamic> json) =>
       phoneNumber: json['phoneNumber'] as String?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
+      avatar: json['avatar'] as String?,
     );
 
 Map<String, dynamic> _$$_AccountInfoEntityToJson(
@@ -25,4 +26,5 @@ Map<String, dynamic> _$$_AccountInfoEntityToJson(
       'phoneNumber': instance.phoneNumber,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
+      'avatar': instance.avatar,
     };

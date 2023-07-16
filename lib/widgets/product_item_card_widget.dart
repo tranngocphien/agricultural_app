@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
@@ -6,6 +7,7 @@ import 'package:grocery_app/screens/cart/presentation/cart_controller.dart';
 import 'package:grocery_app/styles/colors.dart';
 
 import '../common/utils/number_format.dart';
+import '../common/utils/url_format.dart';
 
 class ProductItemCard extends StatelessWidget {
   ProductItemCard({Key? key, required this.item})
@@ -39,7 +41,7 @@ class ProductItemCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(item.images?.first ?? ""),
+            CachedNetworkImage(imageUrl: formatUrl(item.images?.first ?? ""), height: 100, width: 160, fit: BoxFit.fitWidth, ),
             SizedBox(
               height: 20,
             ),
@@ -54,7 +56,7 @@ class ProductItemCard extends StatelessWidget {
             Row(
               children: [
                 AppText(
-                  text: formatNumber(item.price ?? 0),
+                  text: formatNumber(item.price ?? 0) + "đ",
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -66,7 +68,6 @@ class ProductItemCard extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Get.find<CartController>().addItemToCart(item);
-                    print("Add to cart");
                   },
                     child: addWidget())
               ],

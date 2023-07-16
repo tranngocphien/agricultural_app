@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:grocery_app/screens/image_picker/service/image_picker_service.dart';
 import 'package:grocery_app/screens/supplier_product/model/supplier_product_model.dart';
 import 'package:grocery_app/screens/supplier_product/service/supplier_product_service.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../../../../common/base/base_controller.dart';
 import '../../../../entity/category_entity.dart';
 import '../supplier_product_controller.dart';
 
 class CreateSupplierProductController extends BaseController {
   final SupplierProductService supplierProductService;
+  final ImagePickerService imagePickerService;
   final categories = List<CategoryEntity>.empty(growable: true).obs;
   final selectedCategory = 0.obs;
 
@@ -27,7 +29,10 @@ class CreateSupplierProductController extends BaseController {
   final preservationError = "".obs;
   final imagesError = "".obs;
 
-  CreateSupplierProductController(this.supplierProductService);
+  CreateSupplierProductController(this.supplierProductService, this.imagePickerService);
+  final ImagePicker picker = ImagePicker();
+  final imagesProduct = Rx<List<XFile>>([]);
+  final imagesCertificate = Rx<List<XFile>>([]);
 
   @override
   void onInit() async {
@@ -77,17 +82,21 @@ class CreateSupplierProductController extends BaseController {
     } else {
       preservationError("");
     }
-    // if (images.isEmpty) {
-    //   imagesError("Vui lòng chọn ít nhất một ảnh");
-    //   isValid = false;
-    // } else {
-    //   imagesError("");
-    // }
+    if (imagesProduct.value.isEmpty) {
+      imagesError("Vui lòng chọn ít nhất một ảnh");
+      isValid = false;
+    } else {
+      imagesError("");
+    }
     return isValid;
   }
 
   Future<void> createSupplierProduct() async {
     if (validateData()) {
+      showLoading();
+      await imagePickerService.uploadImages(paths: imagesProduct.value.map((e) => e.path).toList()).then((value) {
+        images.addAll(value);
+      });
       SupplierProductRequest request = SupplierProductRequest(
           id: 0,
           name: nameController.text,
@@ -96,9 +105,8 @@ class CreateSupplierProductController extends BaseController {
           location: locationController.text,
           description: descriptionController.text,
           preservation: preservationController.text,
-          images: ["https://cdn.tgdd.vn/Files/2018/06/04/1093149/cach-lam-vai-thieu-say-kho-nhanh-va-don-gian-tai-nha-202204231432126902.jpg"],
+          images: images,
           certificateImages: certificateImages);
-      showLoading();
       await networkCall(
         supplierProductService.createSupplierProduct(request: request),
         onSuccess: (data) {

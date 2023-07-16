@@ -1,5 +1,7 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/entity/cart_item.dart';
+import 'package:grocery_app/styles/colors.dart';
 import '../../../common/base/base_controller.dart';
 import '../../../entity/product_entity.dart';
 import '../service/cart_service.dart';
@@ -50,6 +52,13 @@ class CartController extends BaseController {
     items.addAll(newsItem);
     totalPrice.value = getTotalPrice();
     cartService.saveCart(items);
+    Fluttertoast.showToast(
+      backgroundColor: AppColors.primaryColor,
+        msg: "Đã cập nhật giỏ hàng",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+    );
   }
 
   void removeItem(ProductEntity product) {

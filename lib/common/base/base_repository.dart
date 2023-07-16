@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/common/network/dio_provider.dart';
-
 import '../constants.dart';
 import '../exception/api_exception.dart';
 import '../local/shared_pref.dart';
@@ -105,7 +104,7 @@ class BaseRepository {
   }
 
   Future<T> postData<T>(String url, T Function(dynamic json) convert,
-      {Map<String, dynamic>? data, String? keyData}) async {
+      {Object? data, String? keyData}) async {
     try {
       final localStorage = Get.find<LocalStorage>();
       String? accessToken = await localStorage.get<String?>(SharedPrefKey.accessToken);
@@ -125,6 +124,12 @@ class BaseRepository {
     } on DioException catch (e) {
       if(e.response?.statusCode == 401){
         throw UnauthorizedApiException(message: e.response?.data['message']);
+      } else if(e.response?.statusCode == 502){
+        throw ServerErrorException(message: e.response?.data['message']);
+      } else if(e.response?.statusCode == 404 || e.response?.statusCode == 400){
+        throw BadRequestException(message: e.response?.data['message']);
+      } else {
+        rethrow;
       }
       rethrow;
     } catch (error, stacktrace) {

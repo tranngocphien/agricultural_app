@@ -59,7 +59,7 @@ class ExploreScreen extends BaseView<ExploreController> {
         Obx(() => ListView.separated(
           physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               itemCount: controller.products.length,
               itemBuilder: (context, index) {
                 return ProductWidget(

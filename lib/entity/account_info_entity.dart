@@ -11,6 +11,7 @@ class AccountInfoEntity with _$AccountInfoEntity {
     String? phoneNumber,
     String? firstName,
     String? lastName,
+    String? avatar
 }) = _AccountInfoEntity;
 
   factory AccountInfoEntity.fromJson(Map<String, dynamic> json) => _$AccountInfoEntityFromJson(json);

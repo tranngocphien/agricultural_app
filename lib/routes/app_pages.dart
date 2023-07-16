@@ -1,5 +1,8 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:grocery_app/screens/account/presentation/account_screen.dart';
+import 'package:grocery_app/screens/account_info/presentation/account_info_binding.dart';
+import 'package:grocery_app/screens/account_info/presentation/account_info_screen.dart';
+import 'package:grocery_app/screens/account_info/presentation/change_password/change_password_screen.dart';
 import 'package:grocery_app/screens/cart/presentation/cart_binding.dart';
 import 'package:grocery_app/screens/create_shipping_address/presentation/create_shipping_address_binding.dart';
 import 'package:grocery_app/screens/create_shipping_address/presentation/create_shipping_address_screen.dart';
@@ -14,6 +17,7 @@ import 'package:grocery_app/screens/splash_screen.dart';
 import 'package:grocery_app/screens/supplier_product/presentation/update_supplier_product/update_supplier_product_screen.dart';
 import 'package:grocery_app/screens/welcome_screen.dart';
 import '../screens/account/presentation/account_binding.dart';
+import '../screens/account_info/presentation/change_password/change_password_binding.dart';
 import '../screens/category_collection/presentation/category_collection_binding.dart';
 import '../screens/category_collection/presentation/category_collection_screen.dart';
 import '../screens/explore/presentation/explore_binding.dart';
@@ -151,7 +155,17 @@ class AppPages {
         name: AppRoutes.updateSupplierProduct,
         page: () => UpdateSupplierProductScreen(),
         binding: UpdateSupplierProductBinding()
-    )
+    ),
+    GetPage(
+      name: AppRoutes.profile,
+      page: () => AccountInfoScreen(),
+      binding: AccountInfoBinding()
+    ),
+    GetPage(
+      name: AppRoutes.changePassword,
+      page: () => ChangePasswordScreen(),
+      binding: ChangePasswordBinding()
+    ),
   ];
 
 }

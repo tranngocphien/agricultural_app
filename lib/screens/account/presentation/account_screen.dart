@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:grocery_app/common/utils/url_format.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
 import 'package:grocery_app/helpers/column_with_seprator.dart';
 import 'package:grocery_app/screens/account/presentation/account_controller.dart';
@@ -34,9 +36,15 @@ class AccountScreen extends BaseView<AccountController> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                       ),
-                      child: Image.asset(
+                      child: (controller.accountInfo.value?.avatar?.isEmpty ?? true) ? Image.asset(
                         "assets/icons/icon_logo.png",
                         fit: BoxFit.fitHeight,
+                      ) : ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: CachedNetworkImage(
+                          imageUrl: formatUrl(controller.accountInfo.value?.avatar ?? ""),
+                          fit: BoxFit.fitHeight,
+                        ),
                       ),
                     ),
                     SizedBox(height: 16,),
@@ -85,7 +93,15 @@ class AccountScreen extends BaseView<AccountController> {
                 iconPath: "assets/icons/account_icons/details_icon.svg",
                 title: "Thông tin cá nhân",
                 onTap: () {
-                  Get.toNamed(AppRoutes.historyOrder);
+                  Get.toNamed(AppRoutes.profile, arguments: controller.accountInfo.value);
+                },
+              ),
+              Divider(thickness: 1,),
+              MenuItem(
+                iconPath: "assets/icons/account_icons/details_icon.svg",
+                title: "Đổi mật khẩu",
+                onTap: () {
+                  Get.toNamed(AppRoutes.changePassword);
                 },
               ),
               Divider(thickness: 1,),
