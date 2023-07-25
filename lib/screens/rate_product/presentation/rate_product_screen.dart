@@ -1,14 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-import 'package:grocery_app/screens/rate_product/presentation/rate_product_controller.dart';
+import 'package:grocery_app/common/utils/url_format.dart';
+import 'package:grocery_app/screens/rate_product/presentation/rate_product_view_model.dart';
 
 import '../../../common/base/base_view.dart';
 import '../../../common/utils/number_format.dart';
 import '../../../styles/colors.dart';
 import '../../../styles/text_style.dart';
 
-class RateProductScreen extends BaseView<RateProductController> {
+class RateProductScreen extends BaseView<RateProductViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(
@@ -37,8 +39,8 @@ class RateProductScreen extends BaseView<RateProductController> {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Row(
                 children: [
-                  Image.network(
-                    controller.orderItemEntity.product?.images?.first ?? "",
+                  CachedNetworkImage(
+                    imageUrl : formatUrl(controller.orderItemEntity.product?.images?.first ?? ""),
                     height: 100,
                     width: 100,
                   ),

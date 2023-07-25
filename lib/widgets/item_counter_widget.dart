@@ -41,7 +41,7 @@ class _ItemCounterWidgetState extends State<ItemCounterWidget> {
             width: 30,
             child: Center(
                 child: getText(
-                    text: amount.toString(), fontSize: 18, isBold: true))),
+                    text: widget.initialAmount.toString(), fontSize: 18, isBold: true))),
         SizedBox(width: 18),
         iconWidget(Icons.add,
             iconColor: AppColors.primaryColor, onPressed: () {

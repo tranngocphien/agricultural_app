@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:grocery_app/screens/category_collection/presentation/category_collection_controller.dart';
+import 'package:grocery_app/screens/category_collection/presentation/category_collection_view_model.dart';
 import 'package:grocery_app/screens/category_collection/repository/category_collection_repository_impl.dart';
 
 import '../repository/category_collection_repository.dart';
@@ -11,7 +11,7 @@ class CategoryCollectionBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<CategoryCollectionRepository>(() => CategoryCollectionRepositoryImpl());
     Get.lazyPut<CategoryCollectionService>(() => CategoryCollectionServiceImpl(Get.find()));
-    Get.lazyPut(() => CategoryCollectionController(Get.find()));
+    Get.lazyPut(() => CategoryCollectionViewModel(Get.find()));
   }
 
 }

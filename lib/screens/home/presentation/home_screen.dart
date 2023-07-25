@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/common/base/base_view.dart';
 import 'package:grocery_app/entity/grocery_item.dart';
-import 'package:grocery_app/screens/home/presentation/home_controller.dart';
+import 'package:grocery_app/screens/home/presentation/home_view_model.dart';
 import 'package:grocery_app/screens/home/presentation/widget/product_widget.dart';
-import 'package:grocery_app/screens/main/main_controller.dart';
+import 'package:grocery_app/screens/main/main_view_model.dart';
 import 'package:grocery_app/styles/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:grocery_app/widgets/product_item_card_widget.dart';
@@ -12,7 +12,7 @@ import 'package:grocery_app/widgets/search_bar_widget.dart';
 import '../../../routes/app_routes.dart';
 import 'widget/home_banner_widget.dart';
 
-class HomeScreen extends BaseView<HomeController> {
+class HomeScreen extends BaseView<HomeViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(
@@ -26,7 +26,7 @@ class HomeScreen extends BaseView<HomeController> {
                 ),
                 padded(SearchBarWidget(
                   onTap: () {
-                    Get.find<MainController>().currentIndex = 1;
+                    Get.find<MainViewModel>().currentIndex = 1;
                   },
                 )),
                 SizedBox(
@@ -42,7 +42,7 @@ class HomeScreen extends BaseView<HomeController> {
                 height: 250,
                 child: ListView.separated(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  itemCount: controller.products.length,
+                  itemCount: controller.bestSellerProducts.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -51,7 +51,7 @@ class HomeScreen extends BaseView<HomeController> {
                             arguments: controller.products[index]);
                       },
                       child: ProductItemCard(
-                        item: controller.products[index],
+                        item: controller.bestSellerProducts [index],
                       ),
                     );
                   },

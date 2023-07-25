@@ -4,7 +4,7 @@ import 'package:grocery_app/screens/create_shipping_address/service/create_shipp
 
 import '../../../common/base/base_controller.dart';
 
-class CreateShippingAddressController extends BaseController {
+class CreateShippingAddressViewModel extends BaseViewModel {
   final CreateShippingAddressService createShippingAddressService;
 
   final nameController = TextEditingController();
@@ -15,7 +15,7 @@ class CreateShippingAddressController extends BaseController {
   final phoneError = "".obs;
   final addressError = "".obs;
 
-  CreateShippingAddressController(this.createShippingAddressService);
+  CreateShippingAddressViewModel(this.createShippingAddressService);
 
   Future<void> createShippingAddress() async {
     if(validate()) {

@@ -4,10 +4,10 @@ import '../../../common/base/base_controller.dart';
 import '../../../entity/order_entity.dart';
 import '../service/order_detail_service.dart';
 
-class OrderDetailController extends BaseController {
+class OrderDetailViewModel extends BaseViewModel {
   final OrderDetailService orderDetailService;
   final OrderEntity orderEntity = Get.arguments;
 
-  OrderDetailController(this.orderDetailService);
+  OrderDetailViewModel(this.orderDetailService);
 
 }

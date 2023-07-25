@@ -1,13 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:grocery_app/common/utils/url_format.dart';
 
 import '../../../common/base/base_view.dart';
 import '../../../common_widgets/app_text.dart';
 import '../../../styles/colors.dart';
 import '../../../styles/text_style.dart';
-import 'supplier_info_controller.dart';
+import 'supplier_info_view_model.dart';
 
-class SupplierInfoScreen extends BaseView<SupplierInfoController> {
+class SupplierInfoScreen extends BaseView<SupplierInfoViewModel> {
 
   @override
   Widget buildPage(BuildContext context) {
@@ -32,9 +34,9 @@ class SupplierInfoScreen extends BaseView<SupplierInfoController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 20,),
-            Image.network(controller.supplierEntity.brandImage ?? "",
+            CachedNetworkImage(
               width: Get.width,
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.fitWidth, imageUrl: formatUrl(controller.supplierEntity.brandImage ?? ""),
             ),
             SizedBox(height: 20,),
             AppText(
@@ -60,7 +62,6 @@ class SupplierInfoScreen extends BaseView<SupplierInfoController> {
               fontSize: 14,
               fontWeight: FontWeight.w400,
             ),
-
           ],
         ),
       ),

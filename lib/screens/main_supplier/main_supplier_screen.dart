@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/styles/colors.dart';
 
-import 'main_supplier_controller.dart';
+import 'main_supplier_view_model.dart';
 import 'navigator_item.dart';
 
 class MainSupplierScreen extends StatefulWidget {
@@ -12,7 +12,7 @@ class MainSupplierScreen extends StatefulWidget {
 }
 
 class _MainSupplierScreenState extends State<MainSupplierScreen> {
-  final mainSupplierControllerController = Get.find<MainSupplierController>();
+  final mainSupplierControllerController = Get.find<MainSupplierViewModel>();
 
   @override
   Widget build(BuildContext context) {

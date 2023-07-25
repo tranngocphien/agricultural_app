@@ -7,11 +7,13 @@ import 'package:grocery_app/common/constants.dart';
 import 'package:grocery_app/common/exception/api_exception.dart';
 import 'package:grocery_app/common/network/dio_provider.dart';
 import 'package:grocery_app/screens/sign_in/service/sign_in_service.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
+import '../../../common/global_state.dart';
 import '../../../common/local/shared_pref.dart';
 import '../../../routes/app_routes.dart';
 
-class SignInController extends BaseController {
+class SignInViewModel extends BaseViewModel {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final usernameError = "".obs;
@@ -20,7 +22,7 @@ class SignInController extends BaseController {
   final localStorage = Get.find<LocalStorage>();
   final tabIndex = 0.obs;
 
-  SignInController(this.signInService);
+  SignInViewModel(this.signInService);
 
 
   @override
@@ -33,6 +35,10 @@ class SignInController extends BaseController {
       await networkCall(
         signInService.signIn(usernameController.text, passwordController.text),
         onSuccess: (response) async {
+          String token = response.token ?? "";
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+          await localStorage.save(SharedPrefKey.tokenExpired, decodedToken["exp"].toString());
+          GlobalState.isLogin.value = true;
           await localStorage.save(SharedPrefKey.accessToken, response.token, );
           DioProvider.addToken(response.token ?? "");
           Get.snackbar("Thông báo", "Đăng nhập thành công");

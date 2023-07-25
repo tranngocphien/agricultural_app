@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:grocery_app/screens/sign_in/presentation/sign_in_controller.dart';
+import 'package:get/get.dart';
+import 'package:grocery_app/screens/sign_in/presentation/sign_in_view_model.dart';
 
 import '../../../common/base/base_view.dart';
+import '../../../routes/app_routes.dart';
 import '../../../styles/colors.dart';
+import '../../../styles/text_style.dart';
 
-class SignInScreen extends BaseView<SignInController> {
+class SignInScreen extends BaseView<SignInViewModel> {
   SignInScreen({Key? key});
 
   @override
@@ -135,6 +137,38 @@ class SignInScreen extends BaseView<SignInController> {
                     ),
                   ),
                 ),
+              ),
+              SizedBox(height: 8,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Chưa có tài khoản?", style: AppStyles.s12w400.copyWith(
+                    color: Colors.grey,
+                  ),),
+                  SizedBox(width: 4,),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(AppRoutes.signUp);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: AppColors.primaryColor,
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        "Đăng ký",
+                        style: AppStyles.s14w600.copyWith(
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               )
             ],
           ),

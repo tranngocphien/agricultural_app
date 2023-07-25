@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grocery_app/screens/shipping_address/presentation/shipping_address_controller.dart';
+import 'package:grocery_app/screens/shipping_address/presentation/shipping_address_view_model.dart';
 
 import '../../../common/base/base_view.dart';
 import '../../../routes/app_routes.dart';
 import '../../../styles/colors.dart';
 import '../../../styles/text_style.dart';
 
-class ShippingAddressScreen extends BaseView<ShippingAddressController> {
+class ShippingAddressScreen extends BaseView<ShippingAddressViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(

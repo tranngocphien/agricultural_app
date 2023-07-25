@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import '../../../common/base/base_view.dart';
 import '../../../styles/colors.dart';
 import '../../../styles/text_style.dart';
-import 'create_shipping_address_controller.dart';
+import 'create_shipping_address_view_model.dart';
 
 
-class CreateShippingAddressScreen extends BaseView<CreateShippingAddressController> {
+class CreateShippingAddressScreen extends BaseView<CreateShippingAddressViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(

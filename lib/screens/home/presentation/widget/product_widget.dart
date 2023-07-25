@@ -7,7 +7,7 @@ import 'package:grocery_app/common/utils/url_format.dart';
 import '../../../../entity/product_entity.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../styles/colors.dart';
-import '../../../cart/presentation/cart_controller.dart';
+import '../../../cart/presentation/cart_view_model.dart';
 
 class ProductWidget extends StatelessWidget {
   const ProductWidget({
@@ -100,7 +100,7 @@ class ProductWidget extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.find<CartController>().addItemToCart(product);
+                        Get.find<CartViewModel>().addItemToCart(product);
 
                       },
                       child: Container(

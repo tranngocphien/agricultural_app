@@ -6,11 +6,13 @@ import 'package:grocery_app/styles/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../common/constants.dart';
+import '../common/global_state.dart';
 import '../common/local/shared_pref.dart';
 import '../routes/app_routes.dart';
+import '../styles/text_style.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  final String imagePath = "assets/images/welcome_image.png";
+  final String imagePath = "assets/images/image_welcome.png";
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +30,14 @@ class WelcomeScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
+                SizedBox(
+                  height: 100,
+                ),
+                Text("Hey! Welcome", style: AppStyles.s18w600.copyWith(
+                  color: AppColors.primaryColor,
+                  fontSize: 30
+                ),),
                 Spacer(),
-                icon(),
-                SizedBox(
-                  height: 20,
-                ),
-                welcomeTextWidget(),
-                SizedBox(
-                  height: 10,
-                ),
-                sloganText(),
-                SizedBox(
-                  height: 40,
-                ),
                 getButton(context),
                 SizedBox(
                   height: 40,
@@ -51,46 +48,9 @@ class WelcomeScreen extends StatelessWidget {
         ));
   }
 
-  Widget icon() {
-    String iconPath = "assets/icons/app_icon.svg";
-    return SvgPicture.asset(
-      iconPath,
-      width: 48,
-      height: 56,
-    );
-  }
-
-  Widget welcomeTextWidget() {
-    return Column(
-      children: [
-        AppText(
-          text: "Welcome",
-          fontSize: 48,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
-        ),
-        AppText(
-          text: "to our store",
-          fontSize: 48,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
-        ),
-      ],
-    );
-  }
-
-  Widget sloganText() {
-    return AppText(
-      text: "Get your grecories as fast as in hour",
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-      color: Color(0xffFCFCFC).withOpacity(0.7),
-    );
-  }
-
   Widget getButton(BuildContext context) {
     return AppButton(
-      label: "Get Started",
+      label: "Bắt đầu thôi",
       fontWeight: FontWeight.w600,
       padding: EdgeInsets.symmetric(vertical: 25),
       onPressed: () {
@@ -102,6 +62,19 @@ class WelcomeScreen extends StatelessWidget {
   void onGetStartedClicked(BuildContext context) async {
     final LocalStorage localStorage = Get.find();
     bool isSupplier = await localStorage.get<bool?>(SharedPrefKey.isSupplier) ?? false;
+    String? tokenExpired = await localStorage.get<String?>(SharedPrefKey.tokenExpired);
+    if(tokenExpired == null) {
+      GlobalState.isLogin.value = false;
+    }
+    else {
+      DateTime expired = DateTime.fromMicrosecondsSinceEpoch(int.parse(tokenExpired));
+      if(expired.isBefore(DateTime.now())) {
+        GlobalState.isLogin.value = false;
+      }
+      else {
+        GlobalState.isLogin.value = true;
+      }
+    }
     if(isSupplier) {
       Get.toNamed(AppRoutes.mainSupplier);
     }

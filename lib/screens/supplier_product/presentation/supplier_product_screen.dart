@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grocery_app/screens/supplier_product/presentation/supplier_product_controller.dart';
+import 'package:grocery_app/screens/supplier_product/presentation/supplier_product_view_model.dart';
 
 import '../../../common/base/base_view.dart';
 import '../../../common_widgets/app_text.dart';
@@ -8,7 +8,7 @@ import '../../../routes/app_routes.dart';
 import '../../../styles/colors.dart';
 import 'widget/supplier_product_widget.dart';
 
-class SupplierProductScreen extends BaseView<SupplierProductController> {
+class SupplierProductScreen extends BaseView<SupplierProductViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(

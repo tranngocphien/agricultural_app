@@ -7,7 +7,7 @@ import '../../../../entity/purchase_order_entity.dart';
 import '../../../../styles/colors.dart';
 import '../../../../styles/text_style.dart';
 import '../../../supplier_product/presentation/widget/supplier_product_widget.dart';
-import '../supplier_purchase_order_controller.dart';
+import '../supplier_purchase_order_view_model.dart';
 
 class IdlePurchaseOrderWidget extends StatelessWidget {
   const IdlePurchaseOrderWidget({
@@ -127,7 +127,7 @@ class IdlePurchaseOrderWidget extends StatelessWidget {
                             onPressed: () async {
                               Get.back();
                               if (purchaseOrder.id != null)
-                                await Get.find<SupplierPurchaseOrderController>()
+                                await Get.find<SupplierPurchaseOrderViewModel>()
                                     .confirmOrder(id: purchaseOrder.id!);
                             },
                             child: Text(
@@ -179,7 +179,7 @@ class IdlePurchaseOrderWidget extends StatelessWidget {
                                 onPressed: () async {
                                   Get.back();
                                   if (purchaseOrder.id != null)
-                                    await Get.find<SupplierPurchaseOrderController>()
+                                    await Get.find<SupplierPurchaseOrderViewModel>()
                                         .cancelOrder(id: purchaseOrder.id!);
                                 },
                                 child: Text(

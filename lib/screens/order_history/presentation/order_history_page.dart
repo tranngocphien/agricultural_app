@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grocery_app/screens/order_history/presentation/order_history_controller.dart';
+import 'package:grocery_app/screens/order_history/presentation/order_history_view_model.dart';
 
 import '../../../common/base/base_view.dart';
 import '../../../styles/colors.dart';
@@ -10,7 +10,7 @@ import 'widget/complete_order_widget.dart';
 import 'widget/delivering_order_widget.dart';
 import 'widget/processing_order_widget.dart';
 
-class OrderHistoryScreen extends BaseView<OrderHistoryController> {
+class OrderHistoryScreen extends BaseView<OrderHistoryViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:grocery_app/screens/explore/presentation/explore_controller.dart';
+import 'package:grocery_app/screens/explore/presentation/explore_view_model.dart';
 import 'package:grocery_app/screens/explore/repository/explore_repository.dart';
 import 'package:grocery_app/screens/explore/repository/explore_repository_impl.dart';
 import 'package:grocery_app/screens/explore/service/explore_service.dart';
@@ -10,7 +10,7 @@ class ExploreBindings extends Bindings {
   void dependencies() {
     Get.lazyPut<ExploreRepository>(() => ExploreRepositoryImpl());
     Get.lazyPut<ExploreService>(() => ExploreServiceImpl(Get.find()));
-    Get.lazyPut<ExploreController>(() => ExploreController(Get.find()));
+    Get.lazyPut<ExploreViewModel>(() => ExploreViewModel(Get.find()));
 
   }
 

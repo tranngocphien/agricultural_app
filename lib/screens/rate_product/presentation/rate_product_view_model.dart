@@ -5,7 +5,7 @@ import 'package:grocery_app/screens/rate_product/service/rate_product_service.da
 import '../../../common/base/base_controller.dart';
 import '../../../entity/order_entity.dart';
 
-class RateProductController extends BaseController {
+class RateProductViewModel extends BaseViewModel {
   final RateProductService rateProductService;
 
   final OrderItemEntity orderItemEntity = Get.arguments;
@@ -13,7 +13,7 @@ class RateProductController extends BaseController {
   final contentError = "".obs;
   final rate = 0.obs;
 
-  RateProductController(this.rateProductService);
+  RateProductViewModel(this.rateProductService);
 
   Future<void> rateProduct() async {
     if (contentController.text.trim().isEmpty) {

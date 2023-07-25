@@ -3,9 +3,9 @@ import 'package:grocery_app/common/base/base_controller.dart';
 import 'package:grocery_app/entity/product_entity.dart';
 import 'package:grocery_app/screens/product_details/service/product_detail_service.dart';
 
-class ProductDetailController extends BaseController {
+class ProductDetailViewModel extends BaseViewModel {
   final ProductDetailService productDetailService;
-  ProductDetailController(this.productDetailService);
+  ProductDetailViewModel(this.productDetailService);
 
   final ProductEntity productEntity = Get.arguments;
 

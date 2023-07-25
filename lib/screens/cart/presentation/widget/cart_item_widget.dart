@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
@@ -6,8 +7,9 @@ import 'package:grocery_app/entity/grocery_item.dart';
 import 'package:grocery_app/styles/colors.dart';
 
 import '../../../../common/utils/number_format.dart';
+import '../../../../common/utils/url_format.dart';
 import '../../../../widgets/item_counter_widget.dart';
-import '../cart_controller.dart';
+import '../cart_view_model.dart';
 
 class CartItemWidget extends StatefulWidget {
   CartItemWidget({Key? key, required this.item}) : super(key: key);
@@ -29,6 +31,12 @@ class _CartItemWidgetState extends State<CartItemWidget> {
   @override
   void initState() {
     super.initState();
+    amount = widget.item.amount ?? 0;
+  }
+
+  @override
+  void didUpdateWidget(covariant CartItemWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
     amount = widget.item.amount ?? 0;
   }
 
@@ -70,12 +78,12 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                   initialAmount: amount,
                   onIncrement: () {
                     if(widget.item.product != null) {
-                      Get.find<CartController>().addItemToCart(widget.item.product!);
+                      Get.find<CartViewModel>().addItemToCart(widget.item.product!);
                     }
                   },
                   onDecrement: () {
                     if(widget.item.product != null) {
-                      Get.find<CartController>().removeItem(widget.item.product!);
+                      Get.find<CartViewModel>().removeItem(widget.item.product!);
                     }
                   },
                 )
@@ -112,7 +120,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
   Widget imageWidget() {
     return Container(
       width: 100,
-      child: Image.network(widget.item.product?.images?.first ?? ""),
+      child: CachedNetworkImage(imageUrl: formatUrl(widget.item.product?.images?.first ?? "")),
     );
   }
 }

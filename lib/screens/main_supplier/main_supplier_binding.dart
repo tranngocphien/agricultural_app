@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 
-import 'main_supplier_controller.dart';
+import 'main_supplier_view_model.dart';
 
 class MainSupplierBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => MainSupplierController());
+    Get.lazyPut(() => MainSupplierViewModel());
   }
 
 }

@@ -3,7 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
 import 'package:grocery_app/entity/category_item.dart';
-import 'package:grocery_app/screens/explore/presentation/explore_controller.dart';
+import 'package:grocery_app/screens/explore/presentation/explore_view_model.dart';
 import 'package:grocery_app/widgets/category_item_card_widget.dart';
 import 'package:grocery_app/widgets/search_bar_widget.dart';
 
@@ -22,7 +22,7 @@ List<Color> gridColors = [
   Color(0xffD73B77),
 ];
 
-class ExploreScreen extends BaseView<ExploreController> {
+class ExploreScreen extends BaseView<ExploreViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(

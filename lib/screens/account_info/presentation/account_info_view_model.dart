@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/entity/account_info_entity.dart';
-import 'package:grocery_app/screens/account/presentation/account_controller.dart';
+import 'package:grocery_app/screens/account/presentation/account_view_model.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../common/base/base_controller.dart';
 import '../../image_picker/service/image_picker_service.dart';
 import '../service/account_info_service.dart';
 
-class AccountInfoController extends BaseController {
+class AccountInfoViewModel extends BaseViewModel {
   final AccountInfoService accountInfoService;
   final ImagePickerService imagePickerService;
   final AccountInfoEntity accountInfoEntity = Get.arguments;
@@ -25,7 +25,7 @@ class AccountInfoController extends BaseController {
   final phoneError = "".obs;
   final avatar = "".obs;
 
-  AccountInfoController(this.accountInfoService, this.imagePickerService);
+  AccountInfoViewModel(this.accountInfoService, this.imagePickerService);
 
   @override
   void onInit() {
@@ -61,7 +61,7 @@ class AccountInfoController extends BaseController {
         onSuccess: (data) {
           hideLoading();
           Get.snackbar("Thông báo", "Cập nhật thông tin thành công");
-          Get.find<AccountController>().getAccountInfo();
+          Get.find<AccountViewModel>().getAccountInfo();
         },
       );
     }

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../exception/api_exception.dart';
 
-abstract class BaseController extends GetxController {
+abstract class BaseViewModel extends GetxController {
   final loadStatus = LoadStatus.intl.obs;
 
   Future<void> networkCall<T>(

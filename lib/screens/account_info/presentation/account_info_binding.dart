@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:grocery_app/screens/account_info/presentation/account_info_controller.dart';
+import 'package:grocery_app/screens/account_info/presentation/account_info_view_model.dart';
 
 import '../../image_picker/repository/image_picker_repository.dart';
 import '../../image_picker/repository/image_picker_repository_impl.dart';
@@ -17,7 +17,7 @@ class AccountInfoBinding extends Bindings {
     Get.lazyPut<ImagePickerService>(() => ImagePickerServiceImpl(Get.find()));
     Get.lazyPut<AccountInfoRepository>(() => AccountInfoRepositoryImpl());
     Get.lazyPut<AccountInfoService>(() => AccountInfoServiceImpl(Get.find()));
-    Get.lazyPut(() => AccountInfoController(Get.find(), Get.find()));
+    Get.lazyPut(() => AccountInfoViewModel(Get.find(), Get.find()));
   }
 
 }

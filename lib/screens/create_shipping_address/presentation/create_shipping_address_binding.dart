@@ -4,13 +4,13 @@ import 'package:grocery_app/screens/create_shipping_address/repository/create_sh
 import 'package:grocery_app/screens/create_shipping_address/service/create_shipping_address_service.dart';
 import 'package:grocery_app/screens/create_shipping_address/service/create_shipping_address_service_impl.dart';
 
-import 'create_shipping_address_controller.dart';
+import 'create_shipping_address_view_model.dart';
 
 class CreateShippingAddressBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<CreateShippingAddressRepository>(() => CreateShippingAddressRepositoryImpl());
     Get.lazyPut<CreateShippingAddressService>(() => CreateShippingAddressServiceImpl(Get.find()));
-    Get.lazyPut(() => CreateShippingAddressController(Get.find()));
+    Get.lazyPut(() => CreateShippingAddressViewModel(Get.find()));
   }
 }

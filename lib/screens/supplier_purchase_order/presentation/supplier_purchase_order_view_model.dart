@@ -3,10 +3,10 @@ import 'package:grocery_app/common/base/base_controller.dart';
 import 'package:grocery_app/entity/purchase_order_entity.dart';
 import 'package:grocery_app/screens/supplier_purchase_order/service/supplier_purchase_service.dart';
 
-class SupplierPurchaseOrderController extends BaseController {
+class SupplierPurchaseOrderViewModel extends BaseViewModel {
   final SupplierPurchaseOrderService supplierPurchaseOrderService;
 
-  SupplierPurchaseOrderController(this.supplierPurchaseOrderService);
+  SupplierPurchaseOrderViewModel(this.supplierPurchaseOrderService);
   final purchaseOrders = <PurchaseOrderEntity>[].obs;
   final idlePurchaseOrders = <PurchaseOrderEntity>[].obs;
   final processingPurchaseOrders = <PurchaseOrderEntity>[].obs;

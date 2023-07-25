@@ -5,11 +5,12 @@ import 'package:grocery_app/entity/product_entity.dart';
 
 import '../service/home_service.dart';
 
-class HomeController extends BaseController {
+class HomeViewModel extends BaseViewModel {
   final HomeService homeService;
-  HomeController(this.homeService);
+  HomeViewModel(this.homeService);
   final categories = List<CategoryEntity>.empty(growable: true).obs;
   final products = List<ProductEntity>.empty(growable: true).obs;
+  final bestSellerProducts = List<ProductEntity>.empty(growable: true).obs;
 
   @override
   void onInit() async {
@@ -22,6 +23,9 @@ class HomeController extends BaseController {
         }),
         networkCall(homeService.getProducts(limit: 10, page: 0), onSuccess: (data) {
           products.addAll(data);
+        }),
+        networkCall(homeService.getBestSellerProducts(), onSuccess: (data) {
+          bestSellerProducts.addAll(data);
         })
       ]
     );

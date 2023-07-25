@@ -12,7 +12,7 @@ import '../../../../styles/colors.dart';
 import '../../../../styles/text_style.dart';
 
 class CreateSupplierProductScreen
-    extends BaseView<CreateSupplierProductController> {
+    extends BaseView<CreateSupplierProductViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(
@@ -307,15 +307,76 @@ class CreateSupplierProductScreen
                         SizedBox(
                           height: 16,
                         ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: AppColors.colorFEEAE2)),
-                          child: Center(
-                            child: Icon(Icons.add),
+                        Obx(
+                              () => Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  final List<XFile>? selectedImages =
+                                  await controller.picker.pickMultiImage();
+                                  if (selectedImages!.isNotEmpty) {
+                                    controller.imagesCertificate.value
+                                        .addAll(selectedImages);
+                                    controller.imagesCertificate.refresh();
+                                  }
+                                },
+                                child: Container(
+                                  height: 90,
+                                  width: 90,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                          color: AppColors.colorFEEAE2)),
+                                  child: Center(
+                                    child: Icon(Icons.add),
+                                  ),
+                                ),
+                              ),
+                              ...controller.imagesCertificate.value.map((element) =>
+                                  Stack(
+                                    children: [
+                                      Image.file(
+                                        File(element.path),
+                                        height: 90,
+                                        width: 90,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      Positioned(
+                                        right: 4,
+                                        top: 4,
+                                        child: InkWell(
+                                          onTap: () {
+                                            controller.imagesProduct.value
+                                                .remove(element);
+                                            controller.imagesProduct.refresh();
+                                          },
+                                          child: Container(
+                                            height: 20,
+                                            width: 20,
+                                            decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.5),
+                                                      blurRadius: 2,
+                                                      offset: Offset(0, 1))
+                                                ],
+                                                color: Colors.white,
+                                                borderRadius:
+                                                BorderRadius.circular(10)),
+                                            child: Icon(
+                                              Icons.close,
+                                              size: 15,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ))
+                            ],
                           ),
                         ),
                         SizedBox(

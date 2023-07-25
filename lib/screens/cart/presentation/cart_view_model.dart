@@ -6,12 +6,12 @@ import '../../../common/base/base_controller.dart';
 import '../../../entity/product_entity.dart';
 import '../service/cart_service.dart';
 
-class CartController extends BaseController {
+class CartViewModel extends BaseViewModel {
   final CartService cartService;
   final items = List<CartItemEntity>.empty(growable: true).obs;
   final totalPrice = 0.obs;
 
-  CartController(this.cartService);
+  CartViewModel(this.cartService);
 
   @override
   void onInit() async {
@@ -30,16 +30,16 @@ class CartController extends BaseController {
 
   void addItemToCart(ProductEntity product) {
     bool hasItem = false;
-    items.forEach((element) {
-      if(element.product?.id == product.id) {
+    for(int i = 0; i < items.length; i++) {
+      if(items[i].product?.id == product.id) {
         hasItem = true;
-        final newCartItem = element.copyWith(
-          amount: element.amount! + 1
+        final newCartItem = items[i].copyWith(
+          amount: items[i].amount! + 1
         );
-        items.remove(element);
-        items.insert(0, newCartItem);
+        items.removeAt(i);
+        items.insert(i, newCartItem);
       }
-    });
+    }
     if(!hasItem) {
       final newCartItem = CartItemEntity(
         product: product,
@@ -50,6 +50,7 @@ class CartController extends BaseController {
     List<CartItemEntity> newsItem = List.of(items);
     items.clear();
     items.addAll(newsItem);
+    items.refresh();
     totalPrice.value = getTotalPrice();
     cartService.saveCart(items);
     Fluttertoast.showToast(
@@ -62,20 +63,20 @@ class CartController extends BaseController {
   }
 
   void removeItem(ProductEntity product) {
-    items.forEach((element) {
-      if(element.product?.id == product.id) {
-        if(element.amount == 1) {
-          items.remove(element);
-        }
-        else {
-          final newCartItem = element.copyWith(
-              amount: element.amount! - 1
-          );
-          items.remove(element);
-          items.insert(0, newCartItem);
-        }
-      }
-    });
+    int index = items.indexWhere((element) => element.product?.id == product.id);
+    if(items[index].amount == 1) {
+      items.removeAt(index);
+    } else {
+      final newCartItem = items[index].copyWith(
+          amount: items[index].amount! - 1
+      );
+      items.removeAt(index);
+      items.insert(index, newCartItem);
+    }
+    List<CartItemEntity> newsItem = List.of(items);
+    items.clear();
+    items.addAll(List.of(newsItem));
+    items.refresh();
     totalPrice.value = getTotalPrice();
     cartService.saveCart(items);
   }

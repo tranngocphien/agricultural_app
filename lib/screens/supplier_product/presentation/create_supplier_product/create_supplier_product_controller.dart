@@ -6,9 +6,9 @@ import 'package:grocery_app/screens/supplier_product/service/supplier_product_se
 import 'package:image_picker/image_picker.dart';
 import '../../../../common/base/base_controller.dart';
 import '../../../../entity/category_entity.dart';
-import '../supplier_product_controller.dart';
+import '../supplier_product_view_model.dart';
 
-class CreateSupplierProductController extends BaseController {
+class CreateSupplierProductViewModel extends BaseViewModel {
   final SupplierProductService supplierProductService;
   final ImagePickerService imagePickerService;
   final categories = List<CategoryEntity>.empty(growable: true).obs;
@@ -29,7 +29,7 @@ class CreateSupplierProductController extends BaseController {
   final preservationError = "".obs;
   final imagesError = "".obs;
 
-  CreateSupplierProductController(this.supplierProductService, this.imagePickerService);
+  CreateSupplierProductViewModel(this.supplierProductService, this.imagePickerService);
   final ImagePicker picker = ImagePicker();
   final imagesProduct = Rx<List<XFile>>([]);
   final imagesCertificate = Rx<List<XFile>>([]);
@@ -97,6 +97,9 @@ class CreateSupplierProductController extends BaseController {
       await imagePickerService.uploadImages(paths: imagesProduct.value.map((e) => e.path).toList()).then((value) {
         images.addAll(value);
       });
+      await imagePickerService.uploadImages(paths: imagesCertificate.value.map((e) => e.path).toList()).then((value) {
+        certificateImages.addAll(value);
+      });
       SupplierProductRequest request = SupplierProductRequest(
           id: 0,
           name: nameController.text,
@@ -110,7 +113,7 @@ class CreateSupplierProductController extends BaseController {
       await networkCall(
         supplierProductService.createSupplierProduct(request: request),
         onSuccess: (data) {
-          Get.find<SupplierProductController>().getListSupplierProducts();
+          Get.find<SupplierProductViewModel>().getListSupplierProducts();
           Get.back(result: data);
           Get.snackbar("Thông báo", "Tạo sản phẩm thành công");
         },

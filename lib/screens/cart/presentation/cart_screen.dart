@@ -6,11 +6,12 @@ import 'package:grocery_app/common_widgets/app_button.dart';
 import 'package:grocery_app/screens/cart/presentation/widget/cart_item_widget.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../common/global_state.dart';
 import '../../../routes/app_routes.dart';
 import '../checkout_bottom_sheet.dart';
-import 'cart_controller.dart';
+import 'cart_view_model.dart';
 
-class CartScreen extends BaseView<CartController> {
+class CartScreen extends BaseView<CartViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(
@@ -27,7 +28,7 @@ class CartScreen extends BaseView<CartController> {
             SizedBox(
               height: 20,
             ),
-            Obx(() => Expanded(
+            Expanded(
               child: ListView.separated(
                   itemBuilder: (context,index) {
                     return Container(
@@ -35,9 +36,9 @@ class CartScreen extends BaseView<CartController> {
                         horizontal: 25,
                       ),
                       width: double.maxFinite,
-                      child: Obx(() => CartItemWidget(
+                      child: CartItemWidget(
                         item: controller.items[index],
-                      ) ) ,
+                      ) ,
                     );
                   }, separatorBuilder: (context, index) {
                 return Padding(
@@ -49,7 +50,7 @@ class CartScreen extends BaseView<CartController> {
                   ),
                 );
               }, itemCount: controller.items.length),
-            ) ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -80,6 +81,10 @@ class CartScreen extends BaseView<CartController> {
         fontWeight: FontWeight.w600,
         padding: EdgeInsets.symmetric(vertical: 30),
         onPressed: () {
+          if(GlobalState.isLogin.value == false) {
+            Get.toNamed(AppRoutes.signIn);
+            return;
+          }
           Get.toNamed(AppRoutes.placeOrder, arguments: controller.items);
           // showBottomSheet(context);
         },

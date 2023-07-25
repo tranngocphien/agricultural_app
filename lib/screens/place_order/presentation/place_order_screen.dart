@@ -3,12 +3,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/common/base/base_view.dart';
 import 'package:grocery_app/common/utils/number_format.dart';
-import 'package:grocery_app/screens/place_order/presentation/place_order_controller.dart';
+import 'package:grocery_app/screens/place_order/presentation/place_order_view_model.dart';
 
+import '../../../common/utils/url_format.dart';
 import '../../../styles/colors.dart';
 import '../../../styles/text_style.dart';
 
-class PlaceOrderScreen extends BaseView<PlaceOrderController> {
+class PlaceOrderScreen extends BaseView<PlaceOrderViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(
@@ -122,9 +123,8 @@ class PlaceOrderScreen extends BaseView<PlaceOrderController> {
                                         );
                                       },
                                       separatorBuilder: (context, index) {
-                                        return Divider(
-                                          height: 1,
-                                          color: AppColors.darkGrey,
+                                        return SizedBox(
+                                          height: 16,
                                         );
                                       },
                                       itemCount: controller.shippingAddress.length,
@@ -214,8 +214,7 @@ class PlaceOrderScreen extends BaseView<PlaceOrderController> {
                         child: Row(
                           children: [
                             Image.network(
-                              controller.items[index].product?.images?.first ??
-                                  "",
+                              formatUrl(controller.items[index].product?.images?.first ?? ""),
                               height: 100,
                               width: 100,
                             ),

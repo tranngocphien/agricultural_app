@@ -10,7 +10,7 @@ class CreateSupplierProductBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<ImagePickerRepository>(() => ImagePickerRepositoryImpl());
     Get.lazyPut<ImagePickerService>(() => ImagePickerServiceImpl(Get.find()));
-    Get.lazyPut<CreateSupplierProductController>(() => CreateSupplierProductController(Get.find(), Get.find()));
+    Get.lazyPut<CreateSupplierProductViewModel>(() => CreateSupplierProductViewModel(Get.find(), Get.find()));
   }
 
 }

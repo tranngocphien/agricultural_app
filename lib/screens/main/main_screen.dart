@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/styles/colors.dart';
 
-import 'main_controller.dart';
+import 'main_view_model.dart';
 import 'navigator_item.dart';
 
 class MainScreen extends StatefulWidget {
@@ -12,7 +12,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final mainController = Get.find<MainController>();
+  final mainController = Get.find<MainViewModel>();
 
   @override
   Widget build(BuildContext context) {

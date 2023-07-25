@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
 import 'package:grocery_app/entity/product_entity.dart';
-import 'package:grocery_app/screens/cart/presentation/cart_controller.dart';
+import 'package:grocery_app/screens/cart/presentation/cart_view_model.dart';
 import 'package:grocery_app/styles/colors.dart';
 
 import '../common/utils/number_format.dart';
@@ -67,7 +67,7 @@ class ProductItemCard extends StatelessWidget {
                 Spacer(),
                 GestureDetector(
                   onTap: () {
-                    Get.find<CartController>().addItemToCart(item);
+                    Get.find<CartViewModel>().addItemToCart(item);
                   },
                     child: addWidget())
               ],

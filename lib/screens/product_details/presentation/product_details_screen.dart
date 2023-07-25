@@ -5,14 +5,14 @@ import 'package:get/get.dart';
 import 'package:grocery_app/common/utils/number_format.dart';
 import 'package:grocery_app/common/utils/url_format.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
-import 'package:grocery_app/screens/product_details/presentation/product_details_controller.dart';
+import 'package:grocery_app/screens/product_details/presentation/product_details_view_model.dart';
 import '../../../common/base/base_view.dart';
 import '../../../routes/app_routes.dart';
 import '../../../styles/colors.dart';
 import '../../../styles/text_style.dart';
-import '../../cart/presentation/cart_controller.dart';
+import '../../cart/presentation/cart_view_model.dart';
 
-class ProductDetailsScreen extends BaseView<ProductDetailController> {
+class ProductDetailsScreen extends BaseView<ProductDetailViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(
@@ -65,8 +65,9 @@ class ProductDetailsScreen extends BaseView<ProductDetailController> {
                             int pageViewIndex) =>
                         ClipRRect(
                       borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                        controller.productEntity.images?[itemIndex] ?? "",
+                      child: CachedNetworkImage(
+                        imageUrl: formatUrl(
+                            controller.productEntity.images?[itemIndex] ?? ""),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -269,23 +270,6 @@ class ProductDetailsScreen extends BaseView<ProductDetailController> {
                         SizedBox(
                           height: 16,
                         ),
-                        Text(
-                          "Cách sử dụng",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          controller.productEntity.directionForUse ?? "",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
                         SizedBox(
                           height: 16,
                         ),
@@ -306,10 +290,10 @@ class ProductDetailsScreen extends BaseView<ProductDetailController> {
                             height: 150,
                             child: ListView.builder(
                               itemBuilder: (context, index) {
-                                return Image.network(
-                                  controller.productEntity
+                                return CachedNetworkImage(
+                                  imageUrl: formatUrl(controller.productEntity
                                           .certificateImages?[index] ??
-                                      "",
+                                      ""),
                                   fit: BoxFit.cover,
                                 );
                               },
@@ -339,24 +323,30 @@ class ProductDetailsScreen extends BaseView<ProductDetailController> {
                                   Column(
                                     children: [
                                       Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: AppColors.primaryColor,
-                                                width: 2)),
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                  color: AppColors.primaryColor,
+                                                  width: 2)),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(24),
+                                            borderRadius:
+                                                BorderRadius.circular(24),
                                             child: CachedNetworkImage(
-                                        imageUrl: formatUrl(e.owner?.avatar ?? ""),
-                                        width: 48,
-                                        height: 48,
-                                        fit: BoxFit.cover,
-                                      ),
+                                              imageUrl: formatUrl(
+                                                  e.owner?.avatar ?? ""),
+                                              width: 48,
+                                              height: 48,
+                                              fit: BoxFit.cover,
+                                            ),
                                           )),
-                                      SizedBox(height: 2,),
-                                      Text(e.owner?.username ?? "", style: AppStyles.s12w400.copyWith(
-                                        fontWeight: FontWeight.w600
-                                      ),),
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        e.owner?.username ?? "",
+                                        style: AppStyles.s12w400.copyWith(
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                     ],
                                   ),
                                   SizedBox(
@@ -409,7 +399,7 @@ class ProductDetailsScreen extends BaseView<ProductDetailController> {
           ),
           InkWell(
             onTap: () {
-              Get.find<CartController>()
+              Get.find<CartViewModel>()
                   .addItemToCart(controller.productEntity);
             },
             child: Container(

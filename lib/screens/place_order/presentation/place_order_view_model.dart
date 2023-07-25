@@ -9,7 +9,7 @@ import '../../../entity/cart_item.dart';
 import '../../../entity/payment_type.dart';
 import '../../../routes/app_routes.dart';
 
-class PlaceOrderController extends BaseController {
+class PlaceOrderViewModel extends BaseViewModel {
   final List<CartItemEntity> items = Get.arguments;
   final payments = List<PaymentTypeEntity>.empty(growable: true).obs;
   final shippingAddress = List<ShippingAddressEntity>.empty(growable: true).obs;
@@ -23,7 +23,7 @@ class PlaceOrderController extends BaseController {
 
   final phoneError = "".obs;
 
-  PlaceOrderController(this.placeOrderService);
+  PlaceOrderViewModel(this.placeOrderService);
 
   @override
   void onInit() async {

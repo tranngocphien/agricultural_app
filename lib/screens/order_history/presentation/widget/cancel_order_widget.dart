@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../common/utils/datetime_format.dart';
 import '../../../../common/utils/number_format.dart';
+import '../../../../common/utils/url_format.dart';
 import '../../../../entity/order_entity.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../styles/colors.dart';
@@ -70,8 +72,8 @@ class CancelOrderWidget extends StatelessWidget {
                           return Container(
                             child: Row(
                               children: [
-                                Image.network(
-                                  items[itemIndex].product?.images?.first ?? "",
+                                CachedNetworkImage(
+                                  imageUrl: formatUrl(items[itemIndex].product?.images?.first ?? ""),
                                   height: 100,
                                   width: 100,
                                 ),

@@ -16,10 +16,8 @@ class NavigatorItem {
 }
 
 List<NavigatorItem> navigatorItems = [
-  NavigatorItem("Shop", "assets/icons/shop_icon.svg", 0, HomeScreen()),
-  NavigatorItem("Explore", "assets/icons/explore_icon.svg", 1, ExploreScreen()),
-  NavigatorItem("Cart", "assets/icons/cart_icon.svg", 2, CartScreen()),
-  NavigatorItem(
-      "Favourite", "assets/icons/favourite_icon.svg", 3, FavouriteScreen()),
-  NavigatorItem("Account", "assets/icons/account_icon.svg", 4, AccountScreen()),
+  NavigatorItem("Sản phẩm", "assets/icons/shop_icon.svg", 0, HomeScreen()),
+  NavigatorItem("Tìm kiếm", "assets/icons/explore_icon.svg", 1, ExploreScreen()),
+  NavigatorItem("Giỏ hàng", "assets/icons/cart_icon.svg", 2, CartScreen()),
+  NavigatorItem("Tài khoản", "assets/icons/account_icon.svg", 3, AccountScreen()),
 ];

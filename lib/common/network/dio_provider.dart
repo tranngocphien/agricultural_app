@@ -7,7 +7,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class DioProvider {
   DioProvider._();
 
-  static final String baseUrl = "http://192.168.1.13:8080/";
+  static final String baseUrl = "http://192.168.1.5:8080/";
 
   static Dio? _instance;
 
@@ -33,7 +33,6 @@ class DioProvider {
       );
       _instance = Dio(options);
       _instance?.options.headers['content-Type'] = 'Application/json';
-      getTokenStorage();
       _instance?.interceptors.addAll(
         [
           _prettyDioLogger
@@ -53,6 +52,10 @@ class DioProvider {
 
   static void addToken(String token) {
     _instance?.options.headers['Authorization'] = 'Bearer $token';
+  }
+
+  static void removeToken() {
+    _instance?.options.headers.remove('Authorization');
   }
 
 }

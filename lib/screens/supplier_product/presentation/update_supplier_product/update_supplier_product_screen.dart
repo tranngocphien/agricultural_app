@@ -1,7 +1,12 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:grocery_app/common/utils/url_format.dart';
 import 'package:grocery_app/screens/supplier_product/presentation/create_supplier_product/create_supplier_product_controller.dart';
 import 'package:grocery_app/screens/supplier_product/presentation/update_supplier_product/update_supplier_product_controller.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../common/base/base_controller.dart';
@@ -10,7 +15,7 @@ import '../../../../styles/colors.dart';
 import '../../../../styles/text_style.dart';
 
 class UpdateSupplierProductScreen
-    extends BaseView<UpdateSupplierProductController> {
+    extends BaseView<UpdateSupplierProductViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(
@@ -251,15 +256,118 @@ class UpdateSupplierProductScreen
                         SizedBox(
                           height: 4,
                         ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: AppColors.colorFEEAE2)),
-                          child: Center(
-                            child: Icon(Icons.add),
+                        Obx(
+                          () => Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  final List<XFile>? selectedImages =
+                                      await controller.picker.pickMultiImage();
+                                  if (selectedImages!.isNotEmpty) {
+                                    controller.imagesProduct.value
+                                        .addAll(selectedImages);
+                                    controller.imagesError.value = "";
+                                    controller.imagesProduct.refresh();
+                                  }
+                                },
+                                child: Container(
+                                  height: 90,
+                                  width: 90,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                          color: AppColors.colorFEEAE2)),
+                                  child: Center(
+                                    child: Icon(Icons.add),
+                                  ),
+                                ),
+                              ),
+                              ...controller.imagesProduct.value.map((element) =>
+                                  Stack(
+                                    children: [
+                                      Image.file(
+                                        File(element.path),
+                                        height: 90,
+                                        width: 90,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      Positioned(
+                                        right: 4,
+                                        top: 4,
+                                        child: InkWell(
+                                          onTap: () {
+                                            controller.imagesProduct.value
+                                                .remove(element);
+                                            controller.imagesProduct.refresh();
+                                          },
+                                          child: Container(
+                                            height: 20,
+                                            width: 20,
+                                            decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.5),
+                                                      blurRadius: 2,
+                                                      offset: Offset(0, 1))
+                                                ],
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Icon(
+                                              Icons.close,
+                                              size: 15,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )),
+                              ...controller.images
+                                  .map((element) => Stack(
+                                children: [
+                                  CachedNetworkImage(
+                                    imageUrl: formatUrl(element),
+                                    height: 90,
+                                    width: 90,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    right: 4,
+                                    top: 4,
+                                    child: InkWell(
+                                      onTap: () {
+                                        controller.images
+                                            .remove(element);
+                                        controller.images.refresh();
+                                      },
+                                      child: Container(
+                                        height: 20,
+                                        width: 20,
+                                        decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.5),
+                                                  blurRadius: 2,
+                                                  offset: Offset(0, 1))
+                                            ],
+                                            color: Colors.white,
+                                            borderRadius:
+                                            BorderRadius.circular(10)),
+                                        child: Icon(
+                                          Icons.close,
+                                          size: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ))
+                            ],
                           ),
                         ),
                         Obx(() => Text(
@@ -275,17 +383,120 @@ class UpdateSupplierProductScreen
                         SizedBox(
                           height: 16,
                         ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: AppColors.colorFEEAE2)),
-                          child: Center(
-                            child: Icon(Icons.add),
+                        Obx(
+                              () => Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  final List<XFile>? selectedImages =
+                                  await controller.picker.pickMultiImage();
+                                  if (selectedImages!.isNotEmpty) {
+                                    controller.imagesCertificate.value
+                                        .addAll(selectedImages);
+                                    controller.imagesCertificate.refresh();
+                                  }
+                                },
+                                child: Container(
+                                  height: 90,
+                                  width: 90,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                          color: AppColors.colorFEEAE2)),
+                                  child: Center(
+                                    child: Icon(Icons.add),
+                                  ),
+                                ),
+                              ),
+                              ...controller.imagesCertificate.value.map((element) =>
+                                  Stack(
+                                    children: [
+                                      Image.file(
+                                        File(element.path),
+                                        height: 90,
+                                        width: 90,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      Positioned(
+                                        right: 4,
+                                        top: 4,
+                                        child: InkWell(
+                                          onTap: () {
+                                            controller.imagesCertificate.value
+                                                .remove(element);
+                                            controller.imagesCertificate.refresh();
+                                          },
+                                          child: Container(
+                                            height: 20,
+                                            width: 20,
+                                            decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.5),
+                                                      blurRadius: 2,
+                                                      offset: Offset(0, 1))
+                                                ],
+                                                color: Colors.white,
+                                                borderRadius:
+                                                BorderRadius.circular(10)),
+                                            child: Icon(
+                                              Icons.close,
+                                              size: 15,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )),
+                              ...controller.certificateImages
+                                  .map((element) => Stack(
+                                children: [
+                                  CachedNetworkImage(
+                                    imageUrl: formatUrl(element),
+                                    height: 90,
+                                    width: 90,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    right: 4,
+                                    top: 4,
+                                    child: InkWell(
+                                      onTap: () {
+                                        controller.certificateImages
+                                            .remove(element);
+                                        controller.certificateImages.refresh();
+                                      },
+                                      child: Container(
+                                        height: 20,
+                                        width: 20,
+                                        decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.5),
+                                                  blurRadius: 2,
+                                                  offset: Offset(0, 1))
+                                            ],
+                                            color: Colors.white,
+                                            borderRadius:
+                                            BorderRadius.circular(10)),
+                                        child: Icon(
+                                          Icons.close,
+                                          size: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ))
+                            ],
                           ),
                         ),
+
                         SizedBox(
                           height: 20,
                         ),

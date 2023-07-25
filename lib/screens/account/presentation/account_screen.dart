@@ -2,19 +2,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery_app/common/utils/url_format.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
 import 'package:grocery_app/helpers/column_with_seprator.dart';
-import 'package:grocery_app/screens/account/presentation/account_controller.dart';
+import 'package:grocery_app/screens/account/presentation/account_view_model.dart';
 import 'package:grocery_app/styles/colors.dart';
 
 import '../../../common/base/base_view.dart';
+import '../../../common/global_state.dart';
 import '../../../routes/app_routes.dart';
 import 'package:get/get.dart';
 
 import 'account_item.dart';
 
-class AccountScreen extends BaseView<AccountController> {
+class AccountScreen extends BaseView<AccountViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return SafeArea(
@@ -26,7 +28,7 @@ class AccountScreen extends BaseView<AccountController> {
                 height: 32,
               ),
               Obx(() =>
-              controller.isLogin.value ? Container(
+              GlobalState.isLogin.value ? Container(
                 child: Column(
                   children: [
                     Container(
@@ -85,7 +87,17 @@ class AccountScreen extends BaseView<AccountController> {
                 iconPath: "assets/icons/account_icons/orders_icon.svg",
                 title: "Đơn hàng của tôi",
                 onTap: () {
-                  Get.toNamed(AppRoutes.historyOrder);
+                  if(GlobalState.isLogin.value) {
+                    Get.toNamed(AppRoutes.historyOrder);
+                  } else {
+                    Fluttertoast.showToast(
+                      backgroundColor: AppColors.primaryColor,
+                      msg: "Bạn cần đăng nhập để sử dụng tính năng này!",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.TOP,
+                      timeInSecForIosWeb: 1,
+                    );
+                  }
                 },
               ),
               Divider(thickness: 1,),
@@ -93,7 +105,17 @@ class AccountScreen extends BaseView<AccountController> {
                 iconPath: "assets/icons/account_icons/details_icon.svg",
                 title: "Thông tin cá nhân",
                 onTap: () {
-                  Get.toNamed(AppRoutes.profile, arguments: controller.accountInfo.value);
+                  if(GlobalState.isLogin.value) {
+                    Get.toNamed(AppRoutes.profile, arguments: controller.accountInfo.value);
+                  } else {
+                    Fluttertoast.showToast(
+                      backgroundColor: AppColors.primaryColor,
+                      msg: "Bạn cần đăng nhập để sử dụng tính năng này!",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.TOP,
+                      timeInSecForIosWeb: 1,
+                    );
+                  }
                 },
               ),
               Divider(thickness: 1,),
@@ -101,7 +123,35 @@ class AccountScreen extends BaseView<AccountController> {
                 iconPath: "assets/icons/account_icons/details_icon.svg",
                 title: "Đổi mật khẩu",
                 onTap: () {
-                  Get.toNamed(AppRoutes.changePassword);
+                  if(GlobalState.isLogin.value) {
+                    Get.toNamed(AppRoutes.changePassword);
+                  } else {
+                    Fluttertoast.showToast(
+                      backgroundColor: AppColors.primaryColor,
+                      msg: "Bạn cần đăng nhập để sử dụng tính năng này!",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.TOP,
+                      timeInSecForIosWeb: 1,
+                    );
+                  }
+                },
+              ),
+              Divider(thickness: 1,),
+              MenuItem(
+                iconPath: "assets/icons/account_icons/details_icon.svg",
+                title: "Đăng ký trở thành nhà cung cấp",
+                onTap: () {
+                  if(GlobalState.isLogin.value) {
+                    Get.toNamed(AppRoutes.createSupplierInfo);
+                  } else {
+                    Fluttertoast.showToast(
+                      backgroundColor: AppColors.primaryColor,
+                      msg: "Bạn cần đăng nhập để sử dụng tính năng này!",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.TOP,
+                      timeInSecForIosWeb: 1,
+                    );
+                  }
                 },
               ),
               Divider(thickness: 1,),
@@ -109,15 +159,19 @@ class AccountScreen extends BaseView<AccountController> {
                 iconPath: "assets/icons/account_icons/delivery_icon.svg",
                 title: "Địa chỉ giao hàng",
                 onTap: () {
-                  Get.toNamed(AppRoutes.address);
-                },
-              ),
-              Divider(thickness: 1,),
-              MenuItem(
-                iconPath: "assets/icons/account_icons/notification_icon.svg",
-                title: "Thông báo",
-                onTap: () {
-                  Get.toNamed(AppRoutes.historyOrder);
+                  if(GlobalState.isLogin.value) {
+                    Get.toNamed(AppRoutes.address);
+                    return;
+                  }
+                  else {
+                    Fluttertoast.showToast(
+                      backgroundColor: AppColors.primaryColor,
+                      msg: "Bạn cần đăng nhập để sử dụng tính năng này!",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.TOP,
+                      timeInSecForIosWeb: 1,
+                    );
+                  }
                 },
               ),
               Divider(
@@ -134,6 +188,7 @@ class AccountScreen extends BaseView<AccountController> {
               SizedBox(
                 height: 20,
               ),
+              if(GlobalState.isLogin.value)
               logoutButton(),
               SizedBox(
                 height: 20,

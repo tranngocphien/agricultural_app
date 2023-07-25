@@ -13,6 +13,7 @@ import 'package:grocery_app/screens/place_order/presentation/place_order_screen.
 import 'package:grocery_app/screens/product_details/presentation/product_details_screen.dart';
 import 'package:grocery_app/screens/rate_product/presentation/rate_product_screen.dart';
 import 'package:grocery_app/screens/sign_in/presentation/sign_in_screen.dart';
+import 'package:grocery_app/screens/sign_up/presentation/sign_up_binding.dart';
 import 'package:grocery_app/screens/splash_screen.dart';
 import 'package:grocery_app/screens/supplier_product/presentation/update_supplier_product/update_supplier_product_screen.dart';
 import 'package:grocery_app/screens/welcome_screen.dart';
@@ -36,6 +37,11 @@ import '../screens/rate_product/presentation/rate_product_binding.dart';
 import '../screens/shipping_address/presentation/shipping_address_binding.dart';
 import '../screens/shipping_address/presentation/shipping_address_screen.dart';
 import '../screens/sign_in/presentation/sign_in_binding.dart';
+import '../screens/sign_up/presentation/sign_up_screen.dart';
+import '../screens/supplier_account/presentation/change_supplier_info/change_supplier_info_binding.dart';
+import '../screens/supplier_account/presentation/change_supplier_info/change_supplier_info_screen.dart';
+import '../screens/supplier_account/presentation/create_supplier_info/create_supplier_info_binding.dart';
+import '../screens/supplier_account/presentation/create_supplier_info/create_supplier_info_screen.dart';
 import '../screens/supplier_account/presentation/supplier_account_binding.dart';
 import '../screens/supplier_info/presentation/supplier_info_binding.dart';
 import '../screens/supplier_info/presentation/supplier_info_screen.dart';
@@ -91,6 +97,11 @@ class AppPages {
       name: AppRoutes.signIn,
       page: () => SignInScreen(),
       binding: SignInBinding()
+    ),
+    GetPage(
+      name: AppRoutes.signUp,
+      page: () => SignUpScreen(),
+      binding: SignUpBinding()
     ),
     GetPage(
       name: AppRoutes.setting,
@@ -166,6 +177,16 @@ class AppPages {
       page: () => ChangePasswordScreen(),
       binding: ChangePasswordBinding()
     ),
+    GetPage(
+      name: AppRoutes.changeSupplierInfo,
+      page: () => ChangeSupplierInfoScreen(),
+      binding: ChangeSupplierInfoBinding()
+    ),
+    GetPage(
+      name: AppRoutes.createSupplierInfo,
+      page: () => CreateSupplierInfoScreen(),
+      binding: CreateSupplierInfoBinding()
+    )
   ];
 
 }

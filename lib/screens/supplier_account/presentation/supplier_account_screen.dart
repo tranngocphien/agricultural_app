@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:grocery_app/screens/supplier_account/presentation/supplier_account_controller.dart';
+import 'package:grocery_app/screens/supplier_account/presentation/supplier_account_view_model.dart';
 
 import '../../../common/base/base_view.dart';
 import '../../../common_widgets/app_text.dart';
 import '../../../routes/app_routes.dart';
 import '../../../styles/colors.dart';
 
-class SupplierAccountScreen extends BaseView<SupplierAccountController> {
+class SupplierAccountScreen extends BaseView<SupplierAccountViewModel> {
 
   @override
   Widget buildPage(BuildContext context) {
@@ -74,7 +74,7 @@ class SupplierAccountScreen extends BaseView<SupplierAccountController> {
                 iconPath: "assets/icons/account_icons/details_icon.svg",
                 title: "Thông tin cá nhân",
                 onTap: () {
-                  Get.toNamed(AppRoutes.historyOrder);
+                  Get.toNamed(AppRoutes.profile, arguments: controller.accountInfo.value);
                 },
               ),
               Divider(thickness: 1,),
@@ -82,9 +82,17 @@ class SupplierAccountScreen extends BaseView<SupplierAccountController> {
                 iconPath: "assets/icons/account_icons/details_icon.svg",
                 title: "Thông tin nhà cung cấp",
                 onTap: () {
+                  Get.toNamed(AppRoutes.changeSupplierInfo);
                 },
               ),
               Divider(thickness: 1,),
+              MenuItem(
+                iconPath: "assets/icons/account_icons/details_icon.svg",
+                title: "Đổi mật khẩu",
+                onTap: () {
+                  Get.toNamed(AppRoutes.changePassword);
+                },
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -140,6 +148,7 @@ class SupplierAccountScreen extends BaseView<SupplierAccountController> {
         ),
         onPressed: () {
           controller.logout();
+          Get.offAllNamed(AppRoutes.main);
         },
       ),
     );

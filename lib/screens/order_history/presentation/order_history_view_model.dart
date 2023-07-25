@@ -4,10 +4,10 @@ import 'package:grocery_app/screens/order_history/service/order_history_service.
 
 import '../../../entity/order_entity.dart';
 
-class OrderHistoryController extends BaseController {
+class OrderHistoryViewModel extends BaseViewModel {
   final OrderHistoryService orderHistoryService;
 
-  OrderHistoryController(this.orderHistoryService);
+  OrderHistoryViewModel(this.orderHistoryService);
 
   final _listOrder = <OrderEntity>[].obs;
   final processOrder = <OrderEntity>[].obs;

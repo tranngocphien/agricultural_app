@@ -6,7 +6,7 @@ import '../../../../common/base/base_controller.dart';
 import '../../../../entity/account_info_entity.dart';
 import '../../service/account_info_service.dart';
 
-class ChangePasswordController extends BaseController {
+class ChangePasswordController extends BaseViewModel {
   final AccountInfoService accountInfoService;
 
   final oldPasswordController = TextEditingController();

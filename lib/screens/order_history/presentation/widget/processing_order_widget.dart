@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grocery_app/screens/order_history/presentation/order_history_controller.dart';
+import 'package:grocery_app/common/utils/url_format.dart';
+import 'package:grocery_app/screens/order_history/presentation/order_history_view_model.dart';
 
 import '../../../../common/utils/number_format.dart';
 import '../../../../entity/order_entity.dart';
@@ -13,7 +15,7 @@ class ProcessingOrderWidget extends StatelessWidget {
 
   final List<OrderEntity> orders;
 
-  final OrderHistoryController controller = Get.find<OrderHistoryController>();
+  final OrderHistoryViewModel controller = Get.find<OrderHistoryViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class ProcessingOrderItemWidget extends StatelessWidget {
   });
 
   final OrderEntity order;
-  final OrderHistoryController controller = Get.find<OrderHistoryController>();
+  final OrderHistoryViewModel controller = Get.find<OrderHistoryViewModel>();
 
 
   @override
@@ -67,8 +69,8 @@ class ProcessingOrderItemWidget extends StatelessWidget {
                 return Container(
                   child: Row(
                     children: [
-                      Image.network(
-                        items[itemIndex].product?.images?.first ?? "",
+                      CachedNetworkImage(
+                        imageUrl: formatUrl(items[itemIndex].product?.images?.first ?? ""),
                         height: 100,
                         width: 100,
                       ),

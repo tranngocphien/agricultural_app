@@ -4,9 +4,9 @@ import 'package:grocery_app/screens/explore/service/explore_service.dart';
 
 import '../../../entity/product_entity.dart';
 
-class ExploreController extends BaseController {
+class ExploreViewModel extends BaseViewModel {
   final ExploreService _exploreService;
-  ExploreController(this._exploreService);
+  ExploreViewModel(this._exploreService);
   final products = List<ProductEntity>.empty(growable: true).obs;
 
 

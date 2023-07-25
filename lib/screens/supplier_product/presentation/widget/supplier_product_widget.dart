@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/common/utils/number_format.dart';
+import 'package:grocery_app/common/utils/url_format.dart';
 
 import '../../../../entity/product_entity.dart';
 import '../../../../entity/supplier_product_entity.dart';
@@ -32,9 +34,8 @@ class SupplierProductWidget extends StatelessWidget {
                         Border.all(color: AppColors.darkGrey.withOpacity(0.8))),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    product.images?.first ?? "",
-                    fit: BoxFit.cover,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover, imageUrl: formatUrl(product.images?.first ?? ""),
                   ),
                 )),
             SizedBox(

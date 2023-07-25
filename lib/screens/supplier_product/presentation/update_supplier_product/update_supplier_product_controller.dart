@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grocery_app/screens/supplier_product/presentation/supplier_product_controller.dart';
+import 'package:grocery_app/screens/supplier_product/presentation/supplier_product_view_model.dart';
 import 'package:grocery_app/screens/supplier_product/service/supplier_product_service.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../common/base/base_controller.dart';
 import '../../../../entity/category_entity.dart';
 import '../../../../entity/supplier_product_entity.dart';
+import '../../../image_picker/service/image_picker_service.dart';
 import '../../model/supplier_product_model.dart';
 
-class UpdateSupplierProductController extends BaseController {
+class UpdateSupplierProductViewModel extends BaseViewModel {
   final SupplierProductService supplierProductService;
+  final ImagePickerService imagePickerService;
   final SupplierProductEntity supplierProductEntity = Get.arguments;
   final categories = List<CategoryEntity>.empty(growable: true).obs;
   final selectedCategory = 0.obs;
@@ -29,7 +32,10 @@ class UpdateSupplierProductController extends BaseController {
   final preservationError = "".obs;
   final imagesError = "".obs;
 
-  UpdateSupplierProductController(this.supplierProductService);
+  UpdateSupplierProductViewModel(this.supplierProductService, this.imagePickerService);
+  final ImagePicker picker = ImagePicker();
+  final imagesProduct = Rx<List<XFile>>([]);
+  final imagesCertificate = Rx<List<XFile>>([]);
 
   @override
   void onInit() async {
@@ -90,11 +96,30 @@ class UpdateSupplierProductController extends BaseController {
     } else {
       preservationError("");
     }
+    if (images.isEmpty && imagesProduct.value.isEmpty) {
+      imagesError("Bạn chưa chọn ảnh sản phẩm");
+      isValid = false;
+    } else {
+      imagesError("");
+    }
     return isValid;
   }
 
   Future<void> updateSupplierProduct() async {
     if (validateData()) {
+      showLoading();
+      if(imagesProduct.value.isNotEmpty) {
+        await imagePickerService.uploadImages(paths: imagesProduct.value.map((e) => e.path).toList()).then((value) {
+          images.addAll(value);
+          imagesProduct.value.clear();
+        });
+      }
+      if(imagesCertificate.value.isNotEmpty) {
+        await imagePickerService.uploadImages(paths: imagesCertificate.value.map((e) => e.path).toList()).then((value) {
+          certificateImages.addAll(value);
+          imagesCertificate.value.clear();
+        });
+      }
       SupplierProductRequest request = SupplierProductRequest(
           id: supplierProductEntity.id ?? 0,
           name: nameController.text,
@@ -103,15 +128,12 @@ class UpdateSupplierProductController extends BaseController {
           location: locationController.text,
           description: descriptionController.text,
           preservation: preservationController.text,
-          images: [
-            "https://cdn.tgdd.vn/Files/2018/06/04/1093149/cach-lam-vai-thieu-say-kho-nhanh-va-don-gian-tai-nha-202204231432126902.jpg"
-          ],
+          images: images,
           certificateImages: certificateImages);
-      showLoading();
       await networkCall(
         supplierProductService.updateSupplierProduct(request: request),
         onSuccess: (data) {
-          Get.find<SupplierProductController>().getListSupplierProducts();
+          Get.find<SupplierProductViewModel>().getListSupplierProducts();
           Get.back();
           Get.snackbar("Thông báo", "Cập nhật sản phẩm thành công");
         },
@@ -129,7 +151,7 @@ class UpdateSupplierProductController extends BaseController {
           Get.snackbar("Thông báo", "Xóa sản phẩm thành công");
         },
       );
-      Get.find<SupplierProductController>().getListSupplierProducts();
+      Get.find<SupplierProductViewModel>().getListSupplierProducts();
   }
 
 }

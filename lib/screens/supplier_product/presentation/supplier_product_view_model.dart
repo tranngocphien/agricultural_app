@@ -4,10 +4,10 @@ import '../../../common/base/base_controller.dart';
 import '../../../entity/supplier_product_entity.dart';
 import '../service/supplier_product_service.dart';
 
-class SupplierProductController extends BaseController {
+class SupplierProductViewModel extends BaseViewModel {
   final SupplierProductService supplierProductService;
 
-  SupplierProductController(this.supplierProductService);
+  SupplierProductViewModel(this.supplierProductService);
   final supplierProducts = <SupplierProductEntity>[].obs;
 
   @override

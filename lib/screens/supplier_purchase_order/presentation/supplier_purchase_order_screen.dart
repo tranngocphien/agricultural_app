@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/common/utils/number_format.dart';
 import 'package:grocery_app/entity/purchase_order_entity.dart';
-import 'package:grocery_app/screens/supplier_purchase_order/presentation/supplier_purchase_order_controller.dart';
+import 'package:grocery_app/screens/supplier_purchase_order/presentation/supplier_purchase_order_view_model.dart';
 
 import '../../../common/base/base_view.dart';
 import '../../../common/utils/datetime_format.dart';
@@ -13,7 +13,7 @@ import '../../supplier_product/presentation/widget/supplier_product_widget.dart'
 import 'widget/purchase_order_widget.dart';
 
 class SupplierPurchaseOrderScreen
-    extends BaseView<SupplierPurchaseOrderController> {
+    extends BaseView<SupplierPurchaseOrderViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(

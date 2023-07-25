@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import '../../../common/base/base_view.dart';
 import '../../../styles/text_style.dart';
 import '../../home/presentation/widget/product_widget.dart';
-import 'category_collection_controller.dart';
+import 'category_collection_view_model.dart';
 
-class CategoryCollectionScreen extends BaseView<CategoryCollectionController> {
+class CategoryCollectionScreen extends BaseView<CategoryCollectionViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(

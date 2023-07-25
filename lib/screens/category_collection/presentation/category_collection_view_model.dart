@@ -5,12 +5,12 @@ import '../../../entity/category_entity.dart';
 import '../../../entity/product_entity.dart';
 import '../service/category_collection_service.dart';
 
-class CategoryCollectionController extends BaseController {
+class CategoryCollectionViewModel extends BaseViewModel {
   final CategoryEntity categoryEntity = Get.arguments;
 
   final CategoryCollectionService categoryCollectionService;
 
-  CategoryCollectionController(this.categoryCollectionService);
+  CategoryCollectionViewModel(this.categoryCollectionService);
   final products = List<ProductEntity>.empty(growable: true).obs;
 
 

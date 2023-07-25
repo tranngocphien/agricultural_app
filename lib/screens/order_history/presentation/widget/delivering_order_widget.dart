@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:grocery_app/common/utils/url_format.dart';
 
 import '../../../../common/utils/number_format.dart';
 import '../../../../entity/order_entity.dart';
@@ -50,9 +52,8 @@ class DeliveringOrderWidget extends StatelessWidget {
                     return Container(
                       child: Row(
                         children: [
-                          Image.network(
-                            items[itemIndex].product?.images?.first ??
-                                "",
+                          CachedNetworkImage(
+                            imageUrl: formatUrl(items[itemIndex].product?.images?.first ?? ""),
                             height: 100,
                             width: 100,
                           ),

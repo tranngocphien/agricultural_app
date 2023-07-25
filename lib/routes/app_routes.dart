@@ -34,4 +34,6 @@ class AppRoutes {
   static const updateSupplierProduct = "/updateSupplierProduct";
 
   static const detailPurchaseOrder = "/detailPurchaseOrder";
+  static const changeSupplierInfo = "/changeSupplierInfo";
+  static const createSupplierInfo = "/createSupplierInfo";
 }

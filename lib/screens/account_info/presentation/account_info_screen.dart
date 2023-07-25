@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grocery_app/screens/account_info/presentation/account_info_controller.dart';
+import 'package:grocery_app/screens/account_info/presentation/account_info_view_model.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../common/base/base_view.dart';
@@ -12,7 +12,7 @@ import '../../../common_widgets/app_text.dart';
 import '../../../styles/colors.dart';
 import '../../../styles/text_style.dart';
 
-class AccountInfoScreen extends BaseView<AccountInfoController> {
+class AccountInfoScreen extends BaseView<AccountInfoViewModel> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(

@@ -56,8 +56,7 @@ class OrderAcceptedScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.back();
-                print("a");
+                Get.offAllNamed(AppRoutes.main);
               },
               child: Text(
                 "Về màn hình chính",

@@ -17,4 +17,10 @@ class HomeServiceImpl extends BaseService<HomeRepository> implements HomeService
     return repository.getProducts(page: page, limit: limit);
   }
 
+  @override
+  Future<List<ProductEntity>> getBestSellerProducts() {
+    return repository.getBestSeller();
+
+  }
+
 }

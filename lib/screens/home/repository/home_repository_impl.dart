@@ -17,4 +17,10 @@ class HomeRepositoryImpl extends BaseRepository implements HomeRepository{
   Future<List<ProductEntity>> getProducts({int page = 0, int limit = 10}) {
     return getListData("/api/products?page=$page&size=$limit", (json) => ProductEntity.fromJson(json), keyData: "data");
   }
+
+  @override
+  Future<List<ProductEntity>> getBestSeller() {
+    return getListData("/api/products/bestSeller", (json) => ProductEntity.fromJson(json), keyData: "data");
+
+  }
 }
