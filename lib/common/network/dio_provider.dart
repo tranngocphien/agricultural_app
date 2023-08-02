@@ -7,7 +7,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class DioProvider {
   DioProvider._();
 
-  static final String baseUrl = "http://192.168.1.5:8080/";
+  static final String baseUrl = "https://agri-api.estatekey.click/";
 
   static Dio? _instance;
 
