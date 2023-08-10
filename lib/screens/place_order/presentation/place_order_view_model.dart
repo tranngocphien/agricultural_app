@@ -90,6 +90,10 @@ class PlaceOrderViewModel extends BaseViewModel {
       onSuccess: (data) {
         Get.offAllNamed(AppRoutes.orderSuccess);
       },
+      onError: (error) {
+        Get.snackbar("Oops", "Rất xin lỗi bạn, số lượng sản phẩm còn lại trong kho không đủ");
+
+      },
       onComplete: () {
         Get.back();
         loadStatus(LoadStatus.success);

@@ -91,11 +91,6 @@ class _CartItemWidgetState extends State<CartItemWidget> {
             ),
             Column(
               children: [
-                Icon(
-                  Icons.close,
-                  color: AppColors.darkGrey,
-                  size: 25,
-                ),
                 Spacer(
                   flex: 5,
                 ),

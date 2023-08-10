@@ -97,9 +97,11 @@ class CreateSupplierProductViewModel extends BaseViewModel {
       await imagePickerService.uploadImages(paths: imagesProduct.value.map((e) => e.path).toList()).then((value) {
         images.addAll(value);
       });
-      await imagePickerService.uploadImages(paths: imagesCertificate.value.map((e) => e.path).toList()).then((value) {
-        certificateImages.addAll(value);
-      });
+      if(imagesCertificate.value.isNotEmpty) {
+        await imagePickerService.uploadImages(paths: imagesCertificate.value.map((e) => e.path).toList()).then((value) {
+          certificateImages.addAll(value);
+        });
+      }
       SupplierProductRequest request = SupplierProductRequest(
           id: 0,
           name: nameController.text,

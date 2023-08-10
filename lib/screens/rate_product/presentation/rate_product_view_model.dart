@@ -16,8 +16,10 @@ class RateProductViewModel extends BaseViewModel {
   RateProductViewModel(this.rateProductService);
 
   Future<void> rateProduct() async {
+    showLoading();
     if (contentController.text.trim().isEmpty) {
       contentError.value = "Please enter your comment";
+      Get.back();
       return;
     } else {
       await networkCall(
@@ -25,10 +27,8 @@ class RateProductViewModel extends BaseViewModel {
             orderItemId: orderItemEntity.id ?? 0,
             rate: rate.value,
             content: contentController.text.trim()),
-        onStart: () {
-          showLoading();
-        },
         onSuccess: (data) {
+          Get.back();
           Get.back();
           Get.snackbar("Thông báo", "Đánh giá sản phẩm thành công");
           Get.back();

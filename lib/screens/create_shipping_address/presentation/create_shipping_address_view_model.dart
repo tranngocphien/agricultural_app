@@ -26,7 +26,9 @@ class CreateShippingAddressViewModel extends BaseViewModel {
           address: addressController.text,
         ),
         onSuccess: (data) {
+          Get.back();
           Get.snackbar("Thông báo", "Tạo địa chỉ nhận hàng thành công");
+          Get.back();
           Get.back();
         },
       );

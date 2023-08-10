@@ -32,10 +32,6 @@ class HomeScreen extends BaseView<HomeViewModel> {
                 SizedBox(
                   height: 25,
                 ),
-                padded(HomeBanner()),
-                SizedBox(
-                  height: 25,
-                ),
                 padded(subTitle("Bán chạy")),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10),

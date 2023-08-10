@@ -179,7 +179,7 @@ class AccountScreen extends BaseView<AccountViewModel> {
               ),
               MenuItem(
                 iconPath: "assets/icons/account_icons/about_icon.svg",
-                title: "About",
+                title: "ĐATN - Trần Ngọc Phiên",
                 onTap: () {
                   Get.toNamed(AppRoutes.historyOrder);
                 },
@@ -229,7 +229,7 @@ class AccountScreen extends BaseView<AccountViewModel> {
               ),
             ),
             Text(
-              "Log Out",
+              "Đăng xuất",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 18,

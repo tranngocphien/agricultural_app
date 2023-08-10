@@ -67,22 +67,10 @@ class SupplierProductWidget extends StatelessWidget {
                 SizedBox(
                   height: 8,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      "Đơn vị: " + (product.sku ?? ""),
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.black,
-                      ),
-                    ),
-                  ],
-                ),
                 SizedBox(
                   height: 8,
                 ),
-                Text(formatNumber(product.expectedPrice ?? 0),
+                Text(formatNumber(product.expectedPrice ?? 0) + " đ",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,

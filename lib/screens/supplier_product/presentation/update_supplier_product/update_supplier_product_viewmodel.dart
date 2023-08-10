@@ -150,6 +150,10 @@ class UpdateSupplierProductViewModel extends BaseViewModel {
           Get.back();
           Get.snackbar("Thông báo", "Xóa sản phẩm thành công");
         },
+        onError: (error) {
+          Get.back();
+          Get.snackbar("Thông báo", "Bạn không thể xóa sản phẩm này");
+        }
       );
       Get.find<SupplierProductViewModel>().getListSupplierProducts();
   }

@@ -4,8 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/common/utils/url_format.dart';
-import 'package:grocery_app/screens/supplier_product/presentation/create_supplier_product/create_supplier_product_controller.dart';
-import 'package:grocery_app/screens/supplier_product/presentation/update_supplier_product/update_supplier_product_controller.dart';
+import 'package:grocery_app/screens/supplier_product/presentation/create_supplier_product/create_supplier_product_viewmodel.dart';
+import 'package:grocery_app/screens/supplier_product/presentation/update_supplier_product/update_supplier_product_viewmodel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 
@@ -514,7 +514,7 @@ class UpdateSupplierProductScreen
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Thêm sản phẩm",
+                                  "Cập nhật sản phẩm",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,

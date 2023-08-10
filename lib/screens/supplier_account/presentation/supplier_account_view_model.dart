@@ -4,6 +4,7 @@ import 'package:grocery_app/screens/supplier_account/service/supplier_account_se
 
 import '../../../common/base/base_controller.dart';
 import '../../../common/constants.dart';
+import '../../../common/global_state.dart';
 import '../../../common/local/shared_pref.dart';
 import '../../../entity/account_info_entity.dart';
 
@@ -35,6 +36,7 @@ class SupplierAccountViewModel extends BaseViewModel {
     await localStorage.remove(SharedPrefKey.accessToken);
     await localStorage.remove(SharedPrefKey.isSupplier);
     DioProvider.removeToken();
+    GlobalState.isLogin.value = false;
     accountInfo.value = null;
     isLogin(false);
 

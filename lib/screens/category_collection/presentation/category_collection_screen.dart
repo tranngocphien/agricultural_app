@@ -22,29 +22,20 @@ class CategoryCollectionScreen extends BaseView<CategoryCollectionViewModel> {
           },
         ),
       ),
-      body: Column(
-        children: [
-          Obx(() => ListView.separated(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            itemCount: controller.products.length,
-            itemBuilder: (context, index) {
-              return ProductWidget(
-                product: controller.products[index],
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return SizedBox(
-                height: 20,
-              );
-            },
-          )),
-          SizedBox(
-            height: 15,
-          ),
-        ],
-      ),
+      body: Obx(() => ListView.separated(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        itemCount: controller.products.length,
+        itemBuilder: (context, index) {
+          return ProductWidget(
+            product: controller.products[index],
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return SizedBox(
+            height: 20,
+          );
+        },
+      )),
     );
   }
 }

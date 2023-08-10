@@ -19,19 +19,20 @@ class ProductDetailsScreen extends BaseView<ProductDetailViewModel> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Container(
-              height: 60,
-              width: 60,
-              child: Icon(
-                Icons.arrow_back_ios,
-                size: 16,
-                color: AppColors.black,
-              ),
-            )),
+        iconTheme: IconThemeData(color: AppColors.black),
+        // leading: GestureDetector(
+        //     onTap: () {
+        //       Get.back();
+        //     },
+        //     child: Container(
+        //       height: 60,
+        //       width: 60,
+        //       child: Icon(
+        //         Icons.arrow_back_ios,
+        //         size: 16,
+        //         color: AppColors.black,
+        //       ),
+        //     )),
         title: AppText(
           text: controller.productEntity.name ?? "",
           color: AppColors.black,
@@ -39,18 +40,6 @@ class ProductDetailsScreen extends BaseView<ProductDetailViewModel> {
           fontWeight: FontWeight.w600,
         ),
         centerTitle: true,
-        actions: [
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              margin: EdgeInsets.only(right: 16),
-              child: Icon(
-                Icons.report,
-                color: AppColors.primaryColor,
-              ),
-            ),
-          )
-        ],
       ),
       body: Column(
         children: [
@@ -81,15 +70,6 @@ class ProductDetailsScreen extends BaseView<ProductDetailViewModel> {
                   ),
                   SizedBox(
                     height: 16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(Icons.favorite_border),
-                      SizedBox(
-                        width: 16,
-                      )
-                    ],
                   ),
                   SizedBox(
                     height: 16,
@@ -317,78 +297,88 @@ class ProductDetailsScreen extends BaseView<ProductDetailViewModel> {
                           height: 8,
                         ),
                         ...?controller.productEntity.comments?.map((e) =>
-                            Container(
-                              child: Row(
-                                children: [
-                                  Column(
+                            Column(
+                              children: [
+                                Container(
+                                  child: Row(
                                     children: [
                                       Container(
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                  color: AppColors.primaryColor,
-                                                  width: 2)),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(24),
-                                            child: CachedNetworkImage(
-                                              imageUrl: formatUrl(
-                                                  e.owner?.avatar ?? ""),
-                                              width: 48,
-                                              height: 48,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          )),
-                                      SizedBox(
-                                        height: 2,
-                                      ),
-                                      Text(
-                                        e.owner?.username ?? "",
-                                        style: AppStyles.s12w400.copyWith(
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 16,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          e.content ?? "",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        Row(
+                                        width: 80,
+                                        child: Column(
                                           children: [
+                                            Container(
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                        color: AppColors.primaryColor,
+                                                        width: 2)),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(24),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: formatUrl(
+                                                        e.owner?.avatar ?? ""),
+                                                    width: 32,
+                                                    height: 32,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                )),
+                                            SizedBox(
+                                              height: 2,
+                                            ),
                                             Text(
-                                              "${e.rate ?? 0}",
-                                              style: TextStyle(
-                                                  fontSize: 16,
+                                              e.owner?.username ?? "",
+                                              style: AppStyles.s12w400.copyWith(
                                                   fontWeight: FontWeight.w600),
                                             ),
-                                            SizedBox(
-                                              width: 4,
-                                            ),
-                                            Icon(
-                                              Icons.star,
-                                              color: Colors.amber,
-                                              size: 24,
-                                            ),
                                           ],
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 16,
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              e.content ?? "",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                            SizedBox(
+                                              height: 4,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "${e.rate ?? 0}",
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600),
+                                                ),
+                                                SizedBox(
+                                                  width: 4,
+                                                ),
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber,
+                                                  size: 24,
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                )
+                              ],
                             ))
                       ],
                     ),

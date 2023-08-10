@@ -6,6 +6,7 @@ import 'package:grocery_app/common/utils/number_format.dart';
 import 'package:grocery_app/screens/place_order/presentation/place_order_view_model.dart';
 
 import '../../../common/utils/url_format.dart';
+import '../../../routes/app_routes.dart';
 import '../../../styles/colors.dart';
 import '../../../styles/text_style.dart';
 
@@ -130,30 +131,35 @@ class PlaceOrderScreen extends BaseView<PlaceOrderViewModel> {
                                       itemCount: controller.shippingAddress.length,
                                     ),
                                   ),
-                                  Container(
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.primaryColor,
-                                          borderRadius:
-                                          BorderRadius.circular(8)),
-                                      child: Center(
-                                        child: Text(
-                                          "Tạo địa chỉ mới",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.white,
-                                            decoration: TextDecoration.none,
-                                            fontFamily: "Roboto",
+                                  InkWell(
+                                    onTap: () {
+                                      Get.back();
+                                      Get.toNamed(AppRoutes.createAddress);
+                                    },
+                                    child: Container(
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                            color: AppColors.primaryColor,
+                                            borderRadius:
+                                            BorderRadius.circular(8)),
+                                        child: Center(
+                                          child: Text(
+                                            "Tạo địa chỉ mới",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: AppColors.white,
+                                              decoration: TextDecoration.none,
+                                              fontFamily: "Roboto",
+                                            ),
                                           ),
-                                        ),
-                                      )),
-
+                                        )),
+                                  ),
                                 ],
                               ),
                             ));
                           },
-                          child: Container(
+                          child: Obx(() => controller.shippingAddress.isNotEmpty ? Container(
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
@@ -170,9 +176,9 @@ class PlaceOrderScreen extends BaseView<PlaceOrderViewModel> {
                               children: [
                                 Text(
                                     controller
-                                            .shippingAddress[controller
-                                                .selectedShippingAddress.value]
-                                            .address ??
+                                        .shippingAddress[controller
+                                        .selectedShippingAddress.value]
+                                        .address ??
                                         "",
                                     style: TextStyle(
                                         fontSize: 14,
@@ -182,9 +188,9 @@ class PlaceOrderScreen extends BaseView<PlaceOrderViewModel> {
                                 ),
                                 Text(
                                   controller
-                                          .shippingAddress[controller
-                                              .selectedShippingAddress.value]
-                                          .name ??
+                                      .shippingAddress[controller
+                                      .selectedShippingAddress.value]
+                                      .name ??
                                       "",
                                 ),
                                 SizedBox(
@@ -192,14 +198,20 @@ class PlaceOrderScreen extends BaseView<PlaceOrderViewModel> {
                                 ),
                                 Text(
                                   controller
-                                          .shippingAddress[controller
-                                              .selectedShippingAddress.value]
-                                          .phoneNumber ??
+                                      .shippingAddress[controller
+                                      .selectedShippingAddress.value]
+                                      .phoneNumber ??
                                       "",
                                 ),
                               ],
                             ),
-                          ),
+                          ) : Container(
+                            height: 50,
+                            width: Get.width,
+                            child: Center(child: Text("Tạo địa chỉ mới", style: AppStyles.s18w600.copyWith(
+                              color: AppColors.primaryColor
+                            ),)),
+                          ),)
                         )
                       ],
                     ),
@@ -480,6 +492,7 @@ class PlaceOrderScreen extends BaseView<PlaceOrderViewModel> {
                                   Expanded(
                                     child: GestureDetector(
                                       onTap: () async {
+                                        Get.back();
                                         await controller.placeOrder();
                                       },
                                       child: Container(

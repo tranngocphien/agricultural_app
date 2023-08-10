@@ -136,7 +136,7 @@ class SupplierAccountScreen extends BaseView<SupplierAccountViewModel> {
               ),
             ),
             Text(
-              "Log Out",
+              "Đăng xuất",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 18,

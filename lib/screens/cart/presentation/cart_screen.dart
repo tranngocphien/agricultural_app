@@ -85,7 +85,11 @@ class CartScreen extends BaseView<CartViewModel> {
             Get.toNamed(AppRoutes.signIn);
             return;
           }
-          Get.toNamed(AppRoutes.placeOrder, arguments: controller.items);
+          if(controller.items.isEmpty) {
+            Get.snackbar("Thông báo", "Không có sản phẩm nào trong giỏ hàng");
+          } else {
+            Get.toNamed(AppRoutes.placeOrder, arguments: controller.items);
+          }
           // showBottomSheet(context);
         },
       ),

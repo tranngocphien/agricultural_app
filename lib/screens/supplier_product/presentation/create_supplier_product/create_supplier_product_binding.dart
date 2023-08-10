@@ -3,7 +3,7 @@ import 'package:grocery_app/screens/image_picker/repository/image_picker_reposit
 import 'package:grocery_app/screens/image_picker/repository/image_picker_repository_impl.dart';
 import 'package:grocery_app/screens/image_picker/service/image_picker_service.dart';
 import 'package:grocery_app/screens/image_picker/service/image_picker_service_impl.dart';
-import 'package:grocery_app/screens/supplier_product/presentation/create_supplier_product/create_supplier_product_controller.dart';
+import 'package:grocery_app/screens/supplier_product/presentation/create_supplier_product/create_supplier_product_viewmodel.dart';
 
 class CreateSupplierProductBinding extends Bindings {
   @override
