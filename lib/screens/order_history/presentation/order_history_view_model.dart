@@ -54,7 +54,7 @@ class OrderHistoryViewModel extends BaseViewModel {
     await networkCall(
         orderHistoryService.cancelOrder(id: id),
         onSuccess: (response) async  {
-          Get.snackbar('Cancel Order', 'Cancel Order Success');
+          Get.snackbar('Thông báo', 'Bạn đã hủy đơn hàng thành công');
           await getListOrder();
         }
     );

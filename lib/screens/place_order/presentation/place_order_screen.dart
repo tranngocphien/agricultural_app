@@ -51,6 +51,7 @@ class PlaceOrderScreen extends BaseView<PlaceOrderViewModel> {
                         ),
                         InkWell(
                           onTap: () {
+                            controller.getShippingAddress();
                             Get.bottomSheet(Container(
                               width: double.infinity,
                               decoration: BoxDecoration(

@@ -235,6 +235,7 @@ class ProcessingOrderItemWidget extends StatelessWidget {
                                             Expanded(
                                               child: GestureDetector(
                                                 onTap: () async {
+                                                  Get.back();
                                                   await controller.cancelProcessingOrder(id: order.id ?? 0);
                                                 },
                                                 child: Container(

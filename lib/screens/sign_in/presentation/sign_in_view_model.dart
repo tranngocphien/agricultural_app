@@ -41,14 +41,20 @@ class SignInViewModel extends BaseViewModel {
           GlobalState.isLogin.value = true;
           await localStorage.save(SharedPrefKey.accessToken, response.token, );
           DioProvider.addToken(response.token ?? "");
-          Get.snackbar("Thông báo", "Đăng nhập thành công");
           Future.delayed(Duration(seconds: 2));
           if(tabIndex.value == 0) {
+            Get.snackbar("Thông báo", "Đăng nhập thành công");
             Get.offAllNamed(AppRoutes.main);
 
           } else {
-            Get.offAllNamed(AppRoutes.mainSupplier);
-            await localStorage.save(SharedPrefKey.isSupplier, true);
+            if(response.roles?.contains("ROLE_SUPPLIER") ?? false) {
+              Get.offAllNamed(AppRoutes.mainSupplier);
+              await localStorage.save(SharedPrefKey.isSupplier, true);
+            }
+            else {
+              Get.snackbar("Thông báo", "Bạn không có quyền truy cập");
+              return;
+            }
           }
         },
         onError: (error) {

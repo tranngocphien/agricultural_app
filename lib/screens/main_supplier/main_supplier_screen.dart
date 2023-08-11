@@ -3,6 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/styles/colors.dart';
 
+import '../supplier_account/presentation/supplier_account_screen.dart';
+import '../supplier_product/presentation/supplier_product_screen.dart';
+import '../supplier_purchase_order/presentation/supplier_purchase_order_screen.dart';
 import 'main_supplier_view_model.dart';
 import 'navigator_item.dart';
 
@@ -14,10 +17,22 @@ class MainSupplierScreen extends StatefulWidget {
 class _MainSupplierScreenState extends State<MainSupplierScreen> {
   final mainSupplierControllerController = Get.find<MainSupplierViewModel>();
 
+  Widget getPageContent(int index) {
+    if(index == 0) {
+      return SupplierProductScreen();
+    } else if(index == 1){
+      return SupplierPurchaseOrderScreen();
+    } else if(index == 2) {
+      return SupplierAccountScreen();
+    } else {
+      return SupplierProductScreen();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:Obx(() => navigatorItems[mainSupplierControllerController.currentIndex].screen) ,
+      body:Obx(() => getPageContent(mainSupplierControllerController.currentIndex)) ,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(

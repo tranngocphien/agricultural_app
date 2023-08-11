@@ -28,7 +28,18 @@ class SupplierPurchaseOrderScreen
           fontWeight: FontWeight.w600,
         ),
         centerTitle: true,
-        actions: [],
+        actions: [
+          IconButton(
+            onPressed: () {
+              controller.getListPurchaseOrder();
+
+            },
+            icon: Icon(
+              Icons.refresh,
+              color: AppColors.black,
+            ),
+          ),
+        ],
       ),
       body: DefaultTabController(
         length: 4,

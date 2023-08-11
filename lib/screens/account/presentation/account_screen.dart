@@ -181,7 +181,6 @@ class AccountScreen extends BaseView<AccountViewModel> {
                 iconPath: "assets/icons/account_icons/about_icon.svg",
                 title: "ĐATN - Trần Ngọc Phiên",
                 onTap: () {
-                  Get.toNamed(AppRoutes.historyOrder);
                 },
               ),
 

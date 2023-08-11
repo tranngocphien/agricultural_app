@@ -31,7 +31,7 @@ class RateProductViewModel extends BaseViewModel {
           Get.back();
           Get.back();
           Get.snackbar("Thông báo", "Đánh giá sản phẩm thành công");
-          Get.back();
+          Get.back(result: data);
         },
       );
     }
